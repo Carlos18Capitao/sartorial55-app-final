@@ -18,5 +18,8 @@
         "postcss": "^8.4.31",
         "vite": "^6.2.4",
         "vue": "^3.4.0"
+    },
+    "dependencies": {
+        "sweetalert": "^2.1.2"
     }
 }

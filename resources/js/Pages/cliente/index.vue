@@ -1,5 +1,12 @@
 <script setup>
 import SartorialLayout from '@/Layouts/SartorialLayout.vue';
+//import swal from 'sweetalert';
+
+function handleClick() {
+    alert('Button clicked!');
+    //swal("Here's the title!", "...and here's the text!");
+}
+
 </script>
 
 <template>
@@ -11,7 +18,7 @@ import SartorialLayout from '@/Layouts/SartorialLayout.vue';
 
                 </div>
                 <div class="ms-md-auto py-2 py-md-0">
-                    <a href="#" class="btn btn-primary btn-round">Add Customer</a>
+                    <a href="#" @click.prevent="handleClick" class="btn btn-primary btn-round">Adicionar Cliente</a>
                 </div>
             </div>
             <div class="row">
