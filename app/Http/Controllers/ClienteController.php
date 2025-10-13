@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreClienteRequest;
 use App\Http\Requests\UpdateClienteRequest;
-use App\Models\Cliente;
+use App\Services\ClienteService;
+
 
 class ClienteController extends Controller
 {
+    public function __construct(private ClienteService $service){}
     /**
      * Display a listing of the resource.
      */
