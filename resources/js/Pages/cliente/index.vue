@@ -1,5 +1,7 @@
 <script setup>
+
 import { createApp, h } from 'vue';
+import { router } from '@inertiajs/vue3';
 import SartorialLayout from '@/Layouts/SartorialLayout.vue';
 import swal from 'sweetalert';
 import clienteForm from './partes/clienteForm.vue';
@@ -34,6 +36,37 @@ function handleClick() {
         app.unmount();
     });
 }
+
+function deleteCliente(cliente) {
+    swal({
+        title: "Tem certeza?",
+        text: `Você deseja deletar o cliente ${cliente.nome}?`,
+        icon: "warning",
+        buttons: ["Cancelar", "Deletar"],
+        dangerMode: true,
+    }).then((willDelete) => {
+        if (willDelete) {
+            router.delete(`/clientes/${cliente.id}`, {
+                onSuccess: () => {
+                    swal("Cliente deletado com sucesso!", {
+                        icon: "success",
+                        timer: 1000,
+                        buttons: false
+                    });
+                },
+                onError: () => {
+                    swal("Erro ao deletar cliente!", {
+                        icon: "error",
+                    });
+                }
+            });
+        }
+    });
+}
+
+defineProps({
+    clientes: Array
+});
 
 </script>
 
@@ -151,18 +184,18 @@ function handleClick() {
                             </div>
                             <div class="card-list py-4">
 
-                                <div class="item-list">
+                                <div v-for="(cliente, key) in clientes" :key="key" class="item-list">
                                     <div class="avatar">
                                         <span class="avatar-title rounded-circle border border-white">CF</span>
                                     </div>
-                                    <div class="info-user ms-3">
-                                        <div class="username">Chandra Felix</div>
-                                        <div class="status">Sales Promotion</div>
+                                    <div class="info-user ms-3 text-capitalize">
+                                        <div class="username">{{ cliente.nome }}</div>
+                                        <div class="status">{{ cliente.telefone }}</div>
                                     </div>
                                     <button class="btn btn-icon btn-link op-8 me-1">
-                                        <i class="far fa-envelope"></i>
+                                        <i class="fas fa-cart-arrow-down"></i>
                                     </button>
-                                    <button class="btn btn-icon btn-link btn-danger op-8">
+                                    <button class="btn btn-icon btn-link btn-danger op-8" @click="deleteCliente(cliente)">
                                         <i class="fas fa-ban"></i>
                                     </button>
                                 </div>

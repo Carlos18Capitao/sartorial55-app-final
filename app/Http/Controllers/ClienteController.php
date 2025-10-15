@@ -16,7 +16,12 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        return Inertia::render('cliente/index');
+        $clientes = $this->service->getAll();
+        return Inertia::render('cliente/index',
+            [
+                'clientes' => $clientes
+            ]
+        );
     }
 
     /**
@@ -65,6 +70,7 @@ class ClienteController extends Controller
      */
     public function destroy(Cliente $cliente)
     {
-        //
+        $this->service->delete($cliente->id);
+        return redirect()->route('clientes.index')->with('success', 'Cliente deletado com sucesso!');
     }
 }
