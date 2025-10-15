@@ -53,15 +53,35 @@ defineProps(
             </div>
         </div>
 
+        <div class="page-inner">
+            <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
+                <div>
+                    <h3 class="fw-bold mb-3">Encomendar</h3>
+                </div>
+                <div class="ms-md-auto py-2 py-md-0">
+                    <button href="#" class="btn btn-primary btn-round">Adicionar Item</button>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
-            <div class="col-md-4">
-
+            <div class="col">
+                <h1>fato</h1>
             </div>
-            <div class="col-md-4">
-
+            <div class="col">
+                <h1>casaco</h1>
             </div>
-            <div class="col-md-4">
-
+            <div class="col">
+                <h1>calça</h1>
+            </div>
+            <div class="col">
+                <h1>camisa</h1>
+            </div>
+            <div class="col">
+                <h1>sapatos</h1>
+            </div>
+            <div class="col">
+                <h1>outros</h1>
             </div>
         </div>
 
