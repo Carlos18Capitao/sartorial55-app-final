@@ -12,7 +12,14 @@ function handleClick() {
     const app = createApp({
         render: () => h(clienteForm, {
             // Você pode passar props para o seu formulário aqui
-            onSave: () => swal.close()
+            onSuccess: (msg) => {
+                swal({
+                    text: msg,
+                    icon: "success",
+                    timer: 1000,
+                    buttons: false
+                }).then(() => swal.close());
+            }
         }),
     });
     app.mount(container);

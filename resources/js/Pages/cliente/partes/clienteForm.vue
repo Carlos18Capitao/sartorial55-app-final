@@ -1,14 +1,20 @@
 <script setup>
+import { useForm } from '@inertiajs/vue3';
+const emit = defineEmits(['success']); // Adicione esta linha
 
-let form = defineProps({
-    url: String,
-    nome: String,
-    telefone: String,
-    email: String,
+let form = useForm({
+    url: '',
+    nome: '',
+    telefone: '',
+    email: '',
 });
 
 function submit() {
-    form.post(route('cliente.store'));
+    form.post(route('clientes.store'), {
+        onSuccess: () => {
+            emit('success', 'Cliente cadastrado com sucesso!');
+        }
+    });
 }
 </script>
 <template>

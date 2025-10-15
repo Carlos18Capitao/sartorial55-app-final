@@ -10,7 +10,7 @@ use Inertia\Inertia;
 
 class ClienteController extends Controller
 {
-    public function __construct(private ClienteService $service){}
+    public function __construct(private ClienteService $service) {}
     /**
      * Display a listing of the resource.
      */
@@ -32,7 +32,8 @@ class ClienteController extends Controller
      */
     public function store(StoreClienteRequest $request)
     {
-        //
+        $this->service->new($request->all());
+        return redirect()->route('clientes.index')->with('success', 'Cliente cadastrado com sucesso!');
     }
 
     /**
