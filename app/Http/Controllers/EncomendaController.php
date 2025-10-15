@@ -5,28 +5,25 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreEncomendaRequest;
 use App\Http\Requests\UpdateEncomendaRequest;
 use App\Models\Encomenda;
-use App\Models\Cliente;
+use App\Services\ClienteService;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 
 class EncomendaController extends Controller
 {
-    public function __construct(){
+    public function __construct(ClienteService $cliente){
 
     }
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(ClienteService $cliente)
     {
-        $cliente = null;
-        if ($request->has('id')) {
-            $cliente = Cliente::find($request->id);
-        }
-
-        return Inertia::render('encomenda/index', [
-            'cliente' => $cliente,
-        ]);
+        return Inertia::render('encomenda/index',
+        [
+            'cliente' => $cliente
+        ]
+    );
     }
 
     /**

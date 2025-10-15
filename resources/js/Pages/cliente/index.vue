@@ -5,6 +5,7 @@ import { router } from '@inertiajs/vue3';
 import SartorialLayout from '@/Layouts/SartorialLayout.vue';
 import swal from 'sweetalert';
 import clienteForm from './partes/clienteForm.vue';
+import { Head, Link, useForm } from '@inertiajs/vue3';
 
 function handleClick() {
     // 1. Cria um elemento container para o componente Vue
@@ -192,9 +193,9 @@ defineProps({
                                         <div class="username">{{ cliente.nome }}</div>
                                         <div class="status">{{ cliente.telefone }}</div>
                                     </div>
-                                    <button class="btn btn-icon btn-link op-8 me-1">
+                                    <Link :href="route('encomendas.index', cliente)" class="btn btn-icon btn-link op-8 me-1">
                                         <i class="fas fa-cart-arrow-down"></i>
-                                    </button>
+                                    </Link>
                                     <button class="btn btn-icon btn-link btn-danger op-8" @click="deleteCliente(cliente)">
                                         <i class="fas fa-ban"></i>
                                     </button>
