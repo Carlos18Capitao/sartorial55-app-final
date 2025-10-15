@@ -46,7 +46,7 @@ class ClienteController extends Controller
      */
     public function show(Cliente $cliente)
     {
-        //
+        return $this->service->findOne($cliente);
     }
 
     /**
@@ -54,7 +54,7 @@ class ClienteController extends Controller
      */
     public function edit(Cliente $cliente)
     {
-        //
+        return inertia::render('clientes.edit');
     }
 
     /**
@@ -62,7 +62,8 @@ class ClienteController extends Controller
      */
     public function update(UpdateClienteRequest $request, Cliente $cliente)
     {
-        //
+        $this->service->update($request->all());
+        return redirect()->route('clientes.index')->with('success', 'Cliente atualizado com sucesso!');
     }
 
     /**
