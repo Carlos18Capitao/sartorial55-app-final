@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EncomendaController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +17,7 @@ Route::get('/', function () {
 });
 
 Route::resource('clientes', ClienteController::class);
+Route::resource('encomendas', EncomendaController::class);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
