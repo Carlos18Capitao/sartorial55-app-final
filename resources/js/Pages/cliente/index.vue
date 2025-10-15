@@ -1,10 +1,31 @@
 <script setup>
+import { createApp, h } from 'vue';
 import SartorialLayout from '@/Layouts/SartorialLayout.vue';
-//import swal from 'sweetalert';
+import swal from 'sweetalert';
+import clienteForm from './partes/clienteForm.vue';
 
 function handleClick() {
-    alert('Button clicked!');
-    //swal("Here's the title!", "...and here's the text!");
+    // 1. Cria um elemento container para o componente Vue
+    const container = document.createElement('div');
+
+    // 2. Cria e monta a instância do componente Vue no container
+    const app = createApp({
+        render: () => h(clienteForm, {
+            // Você pode passar props para o seu formulário aqui
+            onSave: () => swal.close()
+        }),
+    });
+    app.mount(container);
+
+    // 3. Exibe o SweetAlert com o componente como conteúdo
+    swal({
+        title: "Adicionar Novo Cliente",
+        content: container,
+        buttons: false, // Vamos deixar o formulário controlar os botões
+    }).then(() => {
+        // 4. Limpa a instância do Vue quando o modal é fechado para evitar memory leaks
+        app.unmount();
+    });
 }
 
 </script>
@@ -18,7 +39,7 @@ function handleClick() {
 
                 </div>
                 <div class="ms-md-auto py-2 py-md-0">
-                    <a href="#" @click.prevent="handleClick" class="btn btn-primary btn-round">Adicionar Cliente</a>
+                    <button href="#" @click="handleClick" class="btn btn-primary btn-round">Adicionar Cliente</button>
                 </div>
             </div>
             <div class="row">
