@@ -18,6 +18,7 @@ class Item extends Model
         'quantidade'
     ];
     protected $table = 'items';
+    protected $appends = ['tipo'];
 
     public function encomenda()
     {
@@ -27,6 +28,11 @@ class Item extends Model
     public function itemable()
     {
         return $this->morphTo();
+    }
+
+    public function getTipoAttribute()
+    {
+        return class_basename($this->itemable_type);
     }
 
 

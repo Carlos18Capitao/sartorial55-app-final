@@ -7,6 +7,20 @@ import swal from 'sweetalert';
 import clienteForm from './partes/clienteForm.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
+function getCasacoCount(cliente) {
+    let count = 0;
+    cliente.encomendas.forEach(encomenda => {
+        encomenda.itens.forEach(iten => {
+            if (iten.tipo === 'Casaco') {
+                count += parseInt(iten.quantidade) || 1;
+                console.log(iten.tipo);
+
+            }
+        });
+    });
+    return count;
+}
+
 function handleClick() {
     // 1. Cria um elemento container para o componente Vue
     const container = document.createElement('div');
@@ -68,6 +82,7 @@ function deleteCliente(cliente) {
 defineProps({
     clientes: Array
 });
+
 
 </script>
 
@@ -249,23 +264,16 @@ defineProps({
                                                 {{ cliente.nome }}
                                             </th>
                                             <td class="text-end">
-                                                <small v-for="(encomenda, ind) in cliente.encomendas">{{ encomenda.data
+                                                <small v-for="(encomenda, ind) in cliente.encomendas" :key="ind">{{
+                                                    encomenda.data+" "
                                                     }}</small> <br>
                                             </td>
                                             <td class="text-end">
-                                                <div class="avatar-group">
-
-                                                    <div class="avatar">
-                                                        <span
-                                                            class="avatar-title rounded-circle border border-white">CF</span>
-                                                    </div>
-                                                    <div class="avatar">
-                                                        <span
-                                                            class="avatar-title rounded-circle border border-white">CF</span>
-                                                    </div>
-                                                    <div class="avatar">
-                                                        <span
-                                                            class="avatar-title rounded-circle border border-white">CF</span>
+                                                <div class="avatar-group" v-for="(encomenda, index) in cliente.encomendas">
+                                                    <div class="avatar topbar-icon" v-for="(item, indx) in encomenda.itens">
+                                                        <span class="notification">{{ item.quantidade }}</span>
+                                                        <img src="/assets/img/icons/MDY.png"
+                                                            class="avatar-img rounded-circle border border-white">
                                                     </div>
                                                 </div>
                                             </td>

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('itemable_id', 50)->nullable(); // ID of the polymorphic relation
             $table->foreignId('encomenda_id')->constrained('encomendas')->onDelete('cascade');
             $table->string('descricao', 255)->nullable();
-            $table->decimal('quantidade', 8, 2)->default(1.00);
+            $table->integer('quantidade')->default(1);
             $table->timestamps();
         });
     }
