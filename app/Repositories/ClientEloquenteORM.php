@@ -13,6 +13,9 @@ class ClientEloquenteORM implements PercistORM
     {
         $clients = Client::with(['encomendas.itens.itemable'])
             ->get()
+            ->filter(function ($client) {
+                return $client->encomendas->isNotEmpty();
+            })
             ->map(function ($client) {
                 $client->encomendas->map(function ($encomenda) {
                     $encomenda->itens->map(function ($item) {
@@ -24,7 +27,7 @@ class ClientEloquenteORM implements PercistORM
                 return $client;
             })
             ->toArray();
-            return $clients;
+        return $clients;
     }
     public function findOne(string $id): stdClass|null
     {

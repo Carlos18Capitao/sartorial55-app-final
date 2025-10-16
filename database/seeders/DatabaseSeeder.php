@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Criar 10 clientes com encomendas
-        Cliente::factory(10)->create()->each(function ($cliente) {
+        Cliente::factory(2)->create()->each(function ($cliente) {
             // Cada cliente tem pelo menos 1 encomenda
             $numEncomendas = rand(1, 3);
             $cliente->encomendas()->saveMany(
