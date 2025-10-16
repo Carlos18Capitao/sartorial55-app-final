@@ -193,10 +193,12 @@ defineProps({
                                         <div class="username">{{ cliente.nome }}</div>
                                         <div class="status">{{ cliente.telefone }}</div>
                                     </div>
-                                    <Link :href="route('encomendas.index', cliente)" class="btn btn-icon btn-link op-8 me-1">
-                                        <i class="fas fa-cart-arrow-down"></i>
+                                    <Link :href="route('encomendas.index', cliente)"
+                                        class="btn btn-icon btn-link op-8 me-1">
+                                    <i class="fas fa-cart-arrow-down"></i>
                                     </Link>
-                                    <button class="btn btn-icon btn-link btn-danger op-8" @click="deleteCliente(cliente)">
+                                    <button class="btn btn-icon btn-link btn-danger op-8"
+                                        @click="deleteCliente(cliente)">
                                         <i class="fas fa-ban"></i>
                                     </button>
                                 </div>
@@ -232,22 +234,41 @@ defineProps({
                                 <table class="table align-items-center mb-0">
                                     <thead class="thead-light">
                                         <tr>
-                                            <th scope="col">Payment Number</th>
-                                            <th scope="col" class="text-end">Date & Time</th>
-                                            <th scope="col" class="text-end">Amount</th>
-                                            <th scope="col" class="text-end">Status</th>
+                                            <th scope="col">Nome</th>
+                                            <th scope="col" class="text-end">Previsão</th>
+                                            <th scope="col" class="text-end">Itens</th>
+                                            <th scope="col" class="text-end">Estado</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <tr v-for="(cliente, index) in clientes" :key="index">
                                             <th scope="row">
                                                 <button class="btn btn-icon btn-round btn-success btn-sm me-2">
                                                     <i class="fa fa-check"></i>
                                                 </button>
-                                                Payment from #10231
+                                                {{ cliente.nome }}
                                             </th>
-                                            <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                                            <td class="text-end">$250.00</td>
+                                            <td class="text-end">
+                                                <small v-for="(encomenda, ind) in cliente.encomendas">{{ encomenda.data
+                                                    }}</small> <br>
+                                            </td>
+                                            <td class="text-end">
+                                                <div class="avatar-group">
+
+                                                    <div class="avatar">
+                                                        <span
+                                                            class="avatar-title rounded-circle border border-white">CF</span>
+                                                    </div>
+                                                    <div class="avatar">
+                                                        <span
+                                                            class="avatar-title rounded-circle border border-white">CF</span>
+                                                    </div>
+                                                    <div class="avatar">
+                                                        <span
+                                                            class="avatar-title rounded-circle border border-white">CF</span>
+                                                    </div>
+                                                </div>
+                                            </td>
                                             <td class="text-end">
                                                 <span class="badge badge-success">Completed</span>
                                             </td>
