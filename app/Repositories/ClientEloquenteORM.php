@@ -11,7 +11,7 @@ class ClientEloquenteORM implements PercistORM
 {
     public function getAll(string $filter = null): array
     {
-        return Client::all()->toArray()?? [];
+        return Client::with(["encomendas.itens"])->get()->toArray()?? [];
     }
     public function findOne(string $id): stdClass|null
     {

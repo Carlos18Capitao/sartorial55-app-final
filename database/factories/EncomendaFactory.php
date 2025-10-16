@@ -17,7 +17,11 @@ class EncomendaFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'numero' => $this->faker->unique()->numerify('ENC-#####'),
+            'data' => $this->faker->dateTimeBetween('now', '+1 year'),
+            'status' => $this->faker->randomElement(['Pendente', 'Em Produção', 'Concluída']),
+            'observacao' => $this->faker->optional()->sentence(),
+            'cliente_id' => \App\Models\Cliente::factory(),
         ];
     }
 }

@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Services;
-use App\Repositories\Contracts\ItemEncomendaORM;
+use App\Repositories\ClientEloquenteORM;
+use App\Repositories\Contracts\PercistORM;
 
 class EncomendaService {
 
-    public function __construct(public ItemEncomendaORM $item){}
+    public function __construct(public PercistORM $item){}
 
-
+    public function new(ClientEloquenteORM $cliente){
+        
+    }
 }

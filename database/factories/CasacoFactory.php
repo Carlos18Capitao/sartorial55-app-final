@@ -17,7 +17,15 @@ class CasacoFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'modelo' => $this->faker->randomElement(\App\Emun\ModeloCasacoEnum::cases())->value,
+            'lapela' => $this->faker->word(),
+            'bolsos' => $this->faker->word(),
+            'forro' => $this->faker->word(),
+            'botao' => $this->faker->word(),
+            'manga' => $this->faker->word(),
+            'costas' => $this->faker->word(),
+            'acabamento' => $this->faker->word(),
+            'status' => $this->faker->randomElement(['Pendente', 'Em Produção', 'Concluído']),
         ];
     }
 }

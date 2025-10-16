@@ -13,13 +13,13 @@ class Casaco extends Model
     protected $fillable = [
         'modelo',
         'lapela',
-        'casa_lapela',
-        'bolso_peito',
-        'bolso_frente',
+        'bolsos',
         'forro',
         'botao',
         'manga',
-        'costas'
+        'costas',
+        'acabamento',
+        'status'
     ];
 
     protected $casts = [

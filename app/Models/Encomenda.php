@@ -10,10 +10,11 @@ class Encomenda extends Model
     /** @use HasFactory<\Database\Factories\EncomendaFactory> */
     use HasFactory;
     protected $fillable = [
-        'cliente_id',
-        'data_entrega',
+        'numero',
+        'data',
         'status',
-        'observacoes'
+        'observacao',
+        'cliente_id'
     ];
     protected $table = 'encomendas';
     public function cliente()

@@ -17,7 +17,12 @@ class ItemFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'status' => $this->faker->randomElement(['Pendente', 'Em Produção', 'Concluído']),
+            'itemable_type' => \App\Models\Casaco::class,
+            'itemable_id' => \App\Models\Casaco::factory(),
+            'encomenda_id' => \App\Models\Encomenda::factory(),
+            'descricao' => $this->faker->sentence(),
+            'quantidade' => $this->faker->numberBetween(1, 5),
         ];
     }
 }

@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('modelo', 100);
             $table->string('lapela', 50)->nullable();
-            $table->string('bolsos', 10)->nullable();
+            $table->string('bolsos', 20)->nullable();
             $table->string('forro', 100)->nullable();
-            $table->string('botao', 10)->nullable();
-            $table->string('manga', 10)->default('F25');
+            $table->string('botao', 20)->nullable();
+            $table->string('manga', 20)->default('F25');
             $table->string('costas', 100)->default('2F com pesos');
             $table->string('acabamento')->nullable();
             $table->string('status')->default('Pendente');

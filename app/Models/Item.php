@@ -10,13 +10,14 @@ class Item extends Model
     /** @use HasFactory<\Database\Factories\ItemFactory> */
     use HasFactory;
     protected $fillable = [
+        'status',
+        'itemable_type',
+        'itemable_id',
         'encomenda_id',
-        'casaco_id',
-        'quantidade',
-        'preco_unitario',
-        'total'
+        'descricao',
+        'quantidade'
     ];
-    protected $table = 'itens_encomenda';
+    protected $table = 'items';
 
     public function encomenda()
     {
@@ -27,6 +28,6 @@ class Item extends Model
     {
         return $this->morphTo();
     }
-    
+
 
 }
