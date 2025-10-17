@@ -17,7 +17,8 @@ class SapatoFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'modelo' => $this->faker->word(),
+            'acabamento' => $this->faker->sentence(),
         ];
     }
 }

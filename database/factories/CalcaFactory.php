@@ -16,15 +16,6 @@ class CalcaFactory extends Factory
      */
     public function definition(): array
     {
-        /*
-        'modelo',
-        'cos',
-        'vinco',
-        'bainha',
-        'bolsos',
-        'presilhas',
-        'botoes',
-         */
         return [
             'modelo' => $this->faker->word(),
             'cos' => $this->faker->word(),

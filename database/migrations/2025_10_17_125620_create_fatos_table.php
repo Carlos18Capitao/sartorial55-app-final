@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,6 +12,10 @@ return new class extends Migration
     {
         Schema::create('fatos', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('casaco_id')->constrained('casacos')->onDelete('cascade');
+            $table->foreignId('colete_id')->constrained('coletes')->onDelete('cascade')->nullable();
+            $table->foreignId('calca_id')->constrained('calcas')->onDelete('cascade')->nullable();
+            $table->string('acabamento')->nullable();
             $table->timestamps();
         });
     }

@@ -17,7 +17,9 @@ class ColeteFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'modelo' => $this->faker->word(),
+            'costa' => $this->faker->word(),
+            'acabamento' => $this->faker->sentence(),
         ];
     }
 }

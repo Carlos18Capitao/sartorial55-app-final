@@ -30,4 +30,9 @@ class Casaco extends Model
     {
         return $this->morphMany(Item::class, 'itemable');
     }
+
+    public function fato()
+    {
+        return $this->belongsTo(Fato::class, 'fato_id');
+    }
 }

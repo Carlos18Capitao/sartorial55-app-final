@@ -17,7 +17,10 @@ class FatoFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'casaco_id' => \App\Models\Casaco::factory(),
+            'colete_id' => \App\Models\Colete::factory(),
+            'calca_id' => \App\Models\Calca::factory(),
+            'acabamento' => $this->faker->sentence(),
         ];
     }
 }

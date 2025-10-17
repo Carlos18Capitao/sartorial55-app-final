@@ -274,8 +274,12 @@ defineProps({
                                                         <span class="notification">{{ item.quantidade }}</span>
                                                         <img v-if="item.tipo=='Casaco'" src="/assets/img/icons/MDY.png"
                                                             class="avatar-img rounded-circle border border-white">
-                                                        <img v-if="item.tipo=='Calca'" src="/assets/img/icons/MXK.png"
-                                                            class="avatar-img rounded-circle border border-white">
+                                                            <img v-if="item.tipo=='Calca'" src="/assets/img/icons/MXK.png"
+                                                                class="avatar-img rounded-circle border border-white">
+                                                            <img v-if="item.tipo=='Camisa'" src="/assets/img/icons/camisa.png"
+                                                                class="avatar-img rounded-circle border border-white">
+                                                            <img v-if="item.tipo=='Fato'" src="/assets/img/icons/fato.png"
+                                                                class="avatar-img rounded-circle border border-white">
 
                                                     </div>
                                                 </div>

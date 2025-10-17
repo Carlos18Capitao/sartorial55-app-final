@@ -9,4 +9,17 @@ class Camisa extends Model
 {
     /** @use HasFactory<\Database\Factories\CamisaFactory> */
     use HasFactory;
+
+    protected $fillabel = [
+        'colarinho',
+        'punho',
+        'pincas',
+        'carcela',
+        'acabamento',
+    ];
+
+    public function itens()
+    {
+        return $this->morphMany(Item::class, 'itemable');
+    }
 }

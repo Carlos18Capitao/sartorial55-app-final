@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('coletes', function (Blueprint $table) {
             $table->id();
+            $table->string('modelo');
+            $table->string('costa');
+            $table->string('acabamento')->nullable();
             $table->timestamps();
         });
     }

@@ -17,7 +17,11 @@ class CamisaFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'colarinho' => $this->faker->word(),
+            'punho' => $this->faker->word(),
+            'pincas' => $this->faker->word(),
+            'carcela' => $this->faker->word(),
+            'acabamento' => $this->faker->word(),
         ];
     }
 }
