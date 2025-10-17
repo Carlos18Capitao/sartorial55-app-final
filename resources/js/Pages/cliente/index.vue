@@ -272,8 +272,11 @@ defineProps({
                                                 <div class="avatar-group" v-for="(encomenda, index) in cliente.encomendas">
                                                     <div class="avatar topbar-icon" v-for="(item, indx) in encomenda.itens">
                                                         <span class="notification">{{ item.quantidade }}</span>
-                                                        <img src="/assets/img/icons/MDY.png"
+                                                        <img v-if="item.tipo=='Casaco'" src="/assets/img/icons/MDY.png"
                                                             class="avatar-img rounded-circle border border-white">
+                                                        <img v-if="item.tipo=='Calca'" src="/assets/img/icons/MXK.png"
+                                                            class="avatar-img rounded-circle border border-white">
+
                                                     </div>
                                                 </div>
                                             </td>
