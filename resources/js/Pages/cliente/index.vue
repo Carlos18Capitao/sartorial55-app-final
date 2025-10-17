@@ -182,7 +182,7 @@ defineProps({
                     <div class="card card-round">
                         <div class="card-body">
                             <div class="card-head-row card-tools-still-right">
-                                <div class="card-title">New Customers</div>
+                                <div class="card-title">Por Validação</div>
                                 <div class="card-tools">
                                     <div class="dropdown">
                                         <button class="btn btn-icon btn-clean me-0" type="button"
@@ -201,18 +201,18 @@ defineProps({
                             <div class="card-list py-4">
 
                                 <div v-for="(cliente, key) in clientes" :key="key" class="item-list">
-                                    <div class="avatar">
+                                    <div v-if="!cliente.encomendas.length" class="avatar">
                                         <span class="avatar-title rounded-circle border border-white">CF</span>
                                     </div>
-                                    <div class="info-user ms-3 text-capitalize">
+                                    <div v-if="!cliente.encomendas.length" class="info-user ms-3 text-capitalize">
                                         <div class="username">{{ cliente.nome }}</div>
                                         <div class="status">{{ cliente.telefone }}</div>
                                     </div>
-                                    <Link :href="route('encomendas.index', cliente)"
+                                    <Link v-if="!cliente.encomendas.length" :href="route('encomendas.index', cliente)"
                                         class="btn btn-icon btn-link op-8 me-1">
                                     <i class="fas fa-cart-arrow-down"></i>
                                     </Link>
-                                    <button class="btn btn-icon btn-link btn-danger op-8"
+                                    <button v-if="!cliente.encomendas.length" class="btn btn-icon btn-link btn-danger op-8"
                                         @click="deleteCliente(cliente)">
                                         <i class="fas fa-ban"></i>
                                     </button>
@@ -226,7 +226,7 @@ defineProps({
                     <div class="card card-round">
                         <div class="card-header">
                             <div class="card-head-row card-tools-still-right">
-                                <div class="card-title">Transaction History</div>
+                                <div class="card-title">Em Produção</div>
                                 <div class="card-tools">
                                     <div class="dropdown">
                                         <button class="btn btn-icon btn-clean me-0" type="button"
@@ -257,36 +257,42 @@ defineProps({
                                     </thead>
                                     <tbody>
                                         <tr v-for="(cliente, index) in clientes" :key="index">
-                                            <th scope="row">
+
+                                            <th v-if="cliente.encomendas.length" scope="row">
                                                 <button class="btn btn-icon btn-round btn-success btn-sm me-2">
                                                     <i class="fa fa-check"></i>
                                                 </button>
                                                 {{ cliente.nome }}
                                             </th>
-                                            <td class="text-end">
+                                            <td v-if="cliente.encomendas.length" class="text-end">
                                                 <small v-for="(encomenda, ind) in cliente.encomendas" :key="ind">{{
-                                                    encomenda.data+" "
-                                                    }}</small> <br>
+                                                    encomenda.data + " "
+                                                }}</small> <br>
                                             </td>
-                                            <td class="text-end">
-                                                <div class="avatar-group" v-for="(encomenda, index) in cliente.encomendas">
-                                                    <div class="avatar topbar-icon" v-for="(item, indx) in encomenda.itens">
+                                            <td v-if="cliente.encomendas.length" class="text-end">
+                                                <div class="avatar-group"
+                                                    v-for="(encomenda, index) in cliente.encomendas">
+                                                    <div class="avatar topbar-icon"
+                                                        v-for="(item, indx) in encomenda.itens">
                                                         <span class="notification">{{ item.quantidade }}</span>
-                                                        <img v-if="item.tipo=='Casaco'" src="/assets/img/icons/MDY.png"
+                                                        <img v-if="item.tipo == 'Casaco'" src="/assets/img/icons/MDY.png"
                                                             class="avatar-img rounded-circle border border-white">
-                                                            <img v-if="item.tipo=='Calca'" src="/assets/img/icons/MXK.png"
-                                                                class="avatar-img rounded-circle border border-white">
-                                                            <img v-if="item.tipo=='Camisa'" src="/assets/img/icons/camisa.png"
-                                                                class="avatar-img rounded-circle border border-white">
-                                                            <img v-if="item.tipo=='Fato'" src="/assets/img/icons/fato.png"
-                                                                class="avatar-img rounded-circle border border-white">
+                                                        <img v-if="item.tipo == 'Calca'" src="/assets/img/icons/MXK.png"
+                                                            class="avatar-img rounded-circle border border-white">
+                                                        <img v-if="item.tipo == 'Camisa'"
+                                                            src="/assets/img/icons/camisa.png"
+                                                            class="avatar-img rounded-circle border border-white">
+                                                        <img v-if="item.tipo == 'Fato'" src="/assets/img/icons/fato.png"
+                                                            class="avatar-img rounded-circle border border-white">
 
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="text-end">
+                                            <td v-if="cliente.encomendas.length" class="text-end">
                                                 <span class="badge badge-success">Completed</span>
                                             </td>
+
+
                                         </tr>
                                     </tbody>
                                 </table>
