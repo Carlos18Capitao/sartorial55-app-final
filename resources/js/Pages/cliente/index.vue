@@ -202,7 +202,9 @@ defineProps({
 
                                 <div v-for="(cliente, key) in clientes" :key="key" class="item-list">
                                     <div v-if="!cliente.encomendas.length" class="avatar">
-                                        <span class="avatar-title rounded-circle border border-white">CF</span>
+                                        <span class="avatar-title rounded-circle border border-white">
+                                            <img class="rounded-circle" :src="'https://ui-avatars.com/api/?name=' + cliente.nome + '&length=2&background=0D8ABC&color=fff'" :alt="cliente.nome" style="width: 40px;">
+                                        </span>
                                     </div>
                                     <div v-if="!cliente.encomendas.length" class="info-user ms-3 text-capitalize">
                                         <div class="username">{{ cliente.nome }}</div>
