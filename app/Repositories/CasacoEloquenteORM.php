@@ -2,50 +2,45 @@
 namespace App\Repositories;
 
 use App\Models\Casaco;
-use App\Repositories\Contracts\PercistORM;
-use stdClass;
+use App\Repositories\Contracts\ItemEncomendaORM;
 
-class CasacoEloquenteORM implements PercistORM {
+class CasacoEloquenteORM implements ItemEncomendaORM {
 
-public function getAll(string $filter = null): array
-    {
-        return Casaco::all()->toArray()?? [];
+
+    public function newItem(array $dado): \Illuminate\Database\Eloquent\Model {
+        $casaco = Casaco::create($dado);
+        return $casaco;
+
     }
-    public function findOne(string $id): stdClass|null
-    {
-        $Casaco = Casaco::find($id);
-        return $Casaco ? (object) $Casaco->toArray() : null;
+    public function getAllItems(): array {
+        return Casaco::all()->toArray();
     }
-    public function delete(string $id): void
-    {
-        $Casaco = Casaco::find($id);
+    public function findOne(string $id): \Illuminate\Database\Eloquent\Model {
+        return $this->getById($id);
+    }
+    public function update(string $id, array $data): \Illuminate\Database\Eloquent\Model {
+        $casaco = $this->getById($id);
+        if (!$casaco) {
+            throw new \Exception('Casaco not found');
+        }
+        $casaco->update($data);
+        return $casaco;
+    }
+    public function updateStatus(string $id, array $status): bool {
+        $Casaco = $this->getById($id);
+        if ($Casaco) {
+            $Casaco->update($status);
+            return true;
+        }
+        return false;
+    }
+    public function delete(string $id): void {
+        $Casaco = $this->getById($id);
         if ($Casaco) {
             $Casaco->delete();
         }
     }
-    public function new(array $dto): stdClass
-    {
-        $Casaco = new Casaco();
-        $Casaco->fill((array) $dto);
-        $Casaco->save();
-        return (object) $Casaco->toArray();
-    }
-    public function update(array $dto): stdClass|null
-    {
-        $Casaco = Casaco::find($dto['id'] ?? null);
-        if ($Casaco) {
-            $Casaco->fill((array) $dto);
-            $Casaco->save();
-            return (object) $Casaco->toArray();
-        }
-        return null;
-    }
-    public function updateStatus(string $id, array $status): void
-    {
-        $Casaco = Casaco::find($id);
-        if ($Casaco) {
-            $Casaco->status = $status;
-            $Casaco->save();
-        }
+    public function getById(string $id): \Illuminate\Database\Eloquent\Model{
+        return Casaco::find($id) ?? throw new \Exception('Casaco not found');
     }
 }
