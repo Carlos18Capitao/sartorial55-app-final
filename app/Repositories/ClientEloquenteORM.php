@@ -29,7 +29,7 @@ class ClientEloquenteORM implements PercistORM
             ->toArray();
         return $clients;
     }
-    public function findOne(string $id): stdClass|null
+    public function findOne(string $id): Client|null
     {
         $client = Client::find($id);
         return $client ? (object) $client->toArray() : null;
@@ -41,14 +41,14 @@ class ClientEloquenteORM implements PercistORM
             $client->delete();
         }
     }
-    public function new(array $dto): stdClass
+    public function new(array $dto): Client
     {
         $client = new Client();
         $client->fill((array) $dto);
         $client->save();
         return (object) $client->toArray();
     }
-    public function update(array $dto): stdClass|null
+    public function update(array $dto): Client|null
     {
         $client = Client::find($dto['id'] ?? null);
         if ($client) {
