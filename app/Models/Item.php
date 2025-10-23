@@ -30,6 +30,11 @@ class Item extends Model
         return $this->morphTo();
     }
 
+    public function photos()
+    {
+        return $this->morphMany(Photo::class, 'photoable');
+    }
+
     public function getTipoAttribute()
     {
         return class_basename($this->itemable_type);

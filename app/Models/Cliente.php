@@ -23,4 +23,9 @@ class Cliente extends Model
     {
         return $this->hasMany(Encomenda::class, 'cliente_id');
     }
+
+    public function photos()
+    {
+        return $this->morphMany(Photo::class, 'photoable');
+    }
 }
