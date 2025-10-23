@@ -5,6 +5,7 @@ use App\Models\Cliente;
 use App\Models\Encomenda;
 use App\Models\Item;
 use App\Models\Casaco;
+use App\Models\Photo;
 
 it('can create an encomenda with items', function () {
     $cliente = Cliente::factory()->create();
@@ -38,6 +39,18 @@ it('can create an encomenda with items', function () {
                 ],
                 'quantidade' => 2,
                 'descricao' => 'Test description',
+                'photos' => [
+                    [
+                        'filename' => 'item_photo1.jpg',
+                        'mime_type' => 'image/jpeg',
+                        'size' => 204800,
+                    ],
+                    [
+                        'filename' => 'item_photo2.jpg',
+                        'mime_type' => 'image/jpeg',
+                        'size' => 102400,
+                    ],
+                ],
             ],
         ],
     ];
@@ -56,6 +69,15 @@ it('can create an encomenda with items', function () {
     expect($item->descricao)->toBe('Test description');
     expect($item->itemable)->toBeInstanceOf(Casaco::class);
     expect($item->itemable->modelo)->toBe('Test Modelo');
+
+    // Check photos
+    expect($item->photos)->toHaveCount(2);
+    expect($item->photos->first())->toBeInstanceOf(Photo::class);
+    expect($item->photos->first()->filename)->toBe('item_photo1.jpg');
+    expect($item->photos->first()->mime_type)->toBe('image/jpeg');
+    expect($item->photos->first()->size)->toBe(204800);
+    expect($item->photos->first()->photoable_type)->toBe(Item::class);
+    expect($item->photos->first()->photoable_id)->toBe($item->id);
 });
 
 it('throws exception for unsupported item type', function () {

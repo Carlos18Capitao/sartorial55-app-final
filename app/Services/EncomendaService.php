@@ -7,6 +7,7 @@ use App\Repositories\ItemEloquentORM;
 use App\Repositories\CasacoEloquenteORM;
 use App\Models\Encomenda;
 use App\Models\Item;
+use App\Models\Photo;
 
 class EncomendaService {
 
@@ -49,7 +50,7 @@ class EncomendaService {
             }
 
             // Criar o Item
-            Item::create([
+            $item = Item::create([
                 'encomenda_id' => $encomenda->id,
                 'itemable_type' => get_class($itemable),
                 'itemable_id' => $itemable->id,
@@ -57,6 +58,20 @@ class EncomendaService {
                 'descricao' => $descricao,
                 'status' => 'Pendente',
             ]);
+
+            // Handle photos for the item if provided
+            if (isset($itemData['photos']) && is_array($itemData['photos'])) {
+                foreach ($itemData['photos'] as $photoData) {
+                    Photo::create([
+                        'path' => $photoData['path'] ?? 'storage/photos/items/' . $item->id . '/' . ($photoData['filename'] ?? 'photo.jpg'),
+                        'filename' => $photoData['filename'] ?? 'photo.jpg',
+                        'mime_type' => $photoData['mime_type'] ?? 'image/jpeg',
+                        'size' => $photoData['size'] ?? 102400,
+                        'photoable_type' => Item::class,
+                        'photoable_id' => $item->id,
+                    ]);
+                }
+            }
         }
 
         return $encomenda->load(['itens.itemable']);
