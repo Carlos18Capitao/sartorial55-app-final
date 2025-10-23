@@ -17,6 +17,12 @@ class Encomenda extends Model
         'cliente_id'
     ];
     protected $table = 'encomendas';
+
+    public function getDataAttribute($value)
+    {
+        return $value ? \Carbon\Carbon::parse($value)->format('d/m/Y') : null;
+    }
+
     public function cliente()
     {
         return $this->belongsTo(Cliente::class, 'cliente_id');
