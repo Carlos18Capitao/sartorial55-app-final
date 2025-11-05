@@ -6,6 +6,11 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\CasacoController;
+use App\Http\Controllers\CalcaController;
+use App\Http\Controllers\CamisaController;
+use App\Http\Controllers\SapatoController;
+use App\Http\Controllers\FatoController;
 
 Route::get('/', function () {
     /* return Inertia::render('Welcome', [
@@ -18,6 +23,12 @@ Route::get('/', function () {
 Route::resource('clientes', ClienteController::class);
 
 Route::resource('encomendas', EncomendaController::class);
+
+Route::resource('casacos', CasacoController::class);
+Route::resource('calcas', CalcaController::class);
+Route::resource('camisas', CamisaController::class);
+Route::resource('sapatos', SapatoController::class);
+Route::resource('fatos', FatoController::class);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

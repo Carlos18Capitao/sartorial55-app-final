@@ -1,11 +1,125 @@
 <script setup>
 import SartorialLayout from '@/Layouts/SartorialLayout.vue';
+import { createApp, h } from 'vue';
+import swal from 'sweetalert';
+import { router } from '@inertiajs/vue3';
+import fato2 from './partes/fato2.vue';
+import fato3 from './partes/fato3.vue';
+import calca from './partes/calca.vue';
+import casaco from './partes/casaco.vue';
+import camisa from './partes/camisa.vue';
+import sapato from './partes/sapato.vue';
 
 defineProps(
     {
         cliente: Object,
     }
 );
+
+function handleClick() {
+    // Modal de seleção de tipo de item
+    swal({
+        title: "Selecionar Tipo de Item",
+        text: "Escolha o tipo de item que deseja adicionar:",
+        buttons: {
+            fato2: {
+                text: "Fato 2 Peças",
+                value: "fato2",
+            },
+            fato3: {
+                text: "Fato 3 Peças",
+                value: "fato3",
+            },
+            calca: {
+                text: "Calça",
+                value: "calca",
+            },
+            casaco: {
+                text: "Casaco",
+                value: "casaco",
+            },
+            camisa: {
+                text: "Camisa",
+                value: "camisa",
+            },
+            sapato: {
+                text: "Sapato",
+                value: "sapato",
+            },
+        },
+    }).then((value) => {
+        if (value) {
+            openItemForm(value);
+        }
+    });
+}
+
+function openItemForm(itemType) {
+    let component;
+    let title;
+
+    switch (itemType) {
+        case 'fato2':
+            component = fato2;
+            title = "Adicionar Fato 2 Peças";
+            break;
+        case 'fato3':
+            component = fato3;
+            title = "Adicionar Fato 3 Peças";
+            break;
+        case 'calca':
+            component = calca;
+            title = "Adicionar Calça";
+            break;
+        case 'casaco':
+            component = casaco;
+            title = "Adicionar Casaco";
+            break;
+        case 'camisa':
+            component = camisa;
+            title = "Adicionar Camisa";
+            break;
+        case 'sapato':
+            component = sapato;
+            title = "Adicionar Sapato";
+            break;
+        default:
+            return;
+    }
+
+    // Cria um elemento container para o componente Vue
+    const container = document.createElement('div');
+
+    // Cria e monta a instância do componente Vue no container
+    const app = createApp({
+        render: () => h(component, {
+            cliente: this.cliente,
+            onSuccess: (msg) => {
+                swal({
+                    text: msg,
+                    icon: "success",
+                    timer: 1000,
+                    buttons: false
+                }).then(() => {
+                    swal.close();
+                    // Recarregar a página ou atualizar o estado
+                    window.location.reload();
+                });
+            }
+        }),
+    });
+    app.mount(container);
+
+    // Exibe o SweetAlert com o componente como conteúdo
+    swal({
+        title: title,
+        content: container,
+        buttons: false, // O formulário controla os botões
+    }).then(() => {
+        // Limpa a instância do Vue quando o modal é fechado
+        app.unmount();
+    });
+}
 </script>
 
 <template>
@@ -59,7 +173,7 @@ defineProps(
                     <h3 class="fw-bold mb-3">Encomendar</h3>
                 </div>
                 <div class="ms-md-auto py-2 py-md-0">
-                    <button href="#" class="btn btn-primary btn-round">Adicionar Item</button>
+                    <button @click="handleClick" class="btn btn-primary btn-round">Adicionar Item</button>
                 </div>
             </div>
         </div>
