@@ -9,15 +9,8 @@ let form = useForm({
     email: '',
 });
 
-let validate = {
-    nome: { required: true, min: 3 },
-    telefone: { required: true, min: 10 },
-    email: { required: true, email: true },
-};
-
 
 function submit() {
-    form.validate(validate);
     form.post(route('clientes.store'), {
         onSuccess: () => {
             emit('success', 'Cliente cadastrado com sucesso!');
