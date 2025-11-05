@@ -29,7 +29,8 @@ class CamisaController extends Controller
      */
     public function store(StoreCamisaRequest $request)
     {
-        //
+        $camisa = Camisa::create($request->validated());
+        return redirect()->back()->with('success', 'Camisa criada com sucesso!');
     }
 
     /**

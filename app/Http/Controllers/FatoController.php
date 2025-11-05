@@ -29,7 +29,8 @@ class FatoController extends Controller
      */
     public function store(StoreFatoRequest $request)
     {
-        //
+        $fato = Fato::create($request->validated());
+        return redirect()->back()->with('success', 'Fato criado com sucesso!');
     }
 
     /**

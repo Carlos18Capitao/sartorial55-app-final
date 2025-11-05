@@ -10,11 +10,10 @@ import casaco from './partes/casaco.vue';
 import camisa from './partes/camisa.vue';
 import sapato from './partes/sapato.vue';
 
-defineProps(
-    {
-        cliente: Object,
-    }
-);
+const props = defineProps({
+    cliente: Object,
+    encomenda: Object,
+});
 
 function handleClick() {
     // Modal de seleção de tipo de item
@@ -93,7 +92,7 @@ function openItemForm(itemType) {
     // Cria e monta a instância do componente Vue no container
     const app = createApp({
         render: () => h(component, {
-            cliente: this.cliente,
+            cliente: props.cliente,
             onSuccess: (msg) => {
                 swal({
                     text: msg,

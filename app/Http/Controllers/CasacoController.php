@@ -29,7 +29,8 @@ class CasacoController extends Controller
      */
     public function store(StoreCasacoRequest $request)
     {
-        //
+        $casaco = Casaco::create($request->validated());
+        return redirect()->back()->with('success', 'Casaco criado com sucesso!');
     }
 
     /**

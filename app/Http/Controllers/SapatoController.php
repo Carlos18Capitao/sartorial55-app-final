@@ -29,7 +29,8 @@ class SapatoController extends Controller
      */
     public function store(StoreSapatoRequest $request)
     {
-        //
+        $sapato = Sapato::create($request->validated());
+        return redirect()->back()->with('success', 'Sapato criado com sucesso!');
     }
 
     /**

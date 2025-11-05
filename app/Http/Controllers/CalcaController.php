@@ -29,7 +29,8 @@ class CalcaController extends Controller
      */
     public function store(StoreCalcaRequest $request)
     {
-        //
+        $calca = Calca::create($request->validated());
+        return redirect()->back()->with('success', 'Calça criada com sucesso!');
     }
 
     /**
