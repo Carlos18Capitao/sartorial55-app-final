@@ -22,7 +22,8 @@ class UpdateClienteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'user_id' => 'sometimes|exists:users,id',
+            'telefone' => 'sometimes|string|max:20',
         ];
     }
 }

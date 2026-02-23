@@ -14,7 +14,10 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('home');
+
+// Rotas de clientes
+Route::resource('clientes', \App\Http\Controllers\ClienteController::class);
 
 
 require __DIR__.'/auth.php';
