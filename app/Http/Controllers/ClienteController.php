@@ -4,24 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreClienteRequest;
 use App\Http\Requests\UpdateClienteRequest;
-use App\Services\ClienteService;
-use App\Models\Cliente;
 use Inertia\Inertia;
 
 class ClienteController extends Controller
 {
-    public function __construct(private ClienteService $service) {}
+    public function __construct() {}
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $clientes = $this->service->getAll();
-        return Inertia::render('cliente/index',
-            [
-                'clientes' => $clientes
-            ]
-        );
+        return Inertia::render('cliente/index');
     }
 
     /**
@@ -35,43 +28,35 @@ class ClienteController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreClienteRequest $request)
+    public function store( $request)
     {
-        $this->service->new($request->all());
-        return redirect()->route('clientes.index')->with('success', 'Cliente cadastrado com sucesso!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Cliente $cliente)
+    public function show()
     {
-        return $this->service->findOne($cliente);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Cliente $cliente)
+    public function edit()
     {
-        return inertia::render('clientes.edit');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateClienteRequest $request, Cliente $cliente)
+    public function update()
     {
-        $this->service->update($request->all());
-        return redirect()->route('clientes.index')->with('success', 'Cliente atualizado com sucesso!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cliente $cliente)
+    public function destroy()
     {
-        $this->service->delete($cliente->id);
-        return redirect()->route('clientes.index')->with('success', 'Cliente deletado com sucesso!');
     }
 }
