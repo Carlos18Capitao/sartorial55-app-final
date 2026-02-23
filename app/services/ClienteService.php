@@ -14,18 +14,40 @@ class ClienteService
      */
     public function getAll()
     {
-        return Cliente::with('user')->get();
+        $clientes = Cliente::with('user')->get();
+
+        return $clientes->map(function ($cliente) {
+            return [
+                'id' => $cliente->id,
+                'name' => $cliente->user->name ?? null,
+                'email' => $cliente->user->email ?? null,
+                'telefone' => $cliente->telefone,
+                'user_id' => $cliente->user_id,
+            ];
+        });
     }
 
     /**
      * Get cliente by ID.
      *
      * @param int $id
-     * @return Cliente|null
+     * @return array|null
      */
     public function getById($id)
     {
-        return Cliente::with('user')->find($id);
+        $cliente = Cliente::with('user')->find($id);
+
+        if (!$cliente) {
+            return null;
+        }
+
+        return [
+            'id' => $cliente->id,
+            'name' => $cliente->user->name ?? null,
+            'email' => $cliente->user->email ?? null,
+            'telefone' => $cliente->telefone,
+            'user_id' => $cliente->user_id,
+        ];
     }
 
     /**

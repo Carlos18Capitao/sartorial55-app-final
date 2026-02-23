@@ -25,8 +25,6 @@ class ClienteController extends Controller
     {
         $clientes = $this->clienteService->getAll();
 
-        dd($clientes);
-
         return Inertia::render('Clientes/Index', [
             'clientes' => $clientes,
         ]);
