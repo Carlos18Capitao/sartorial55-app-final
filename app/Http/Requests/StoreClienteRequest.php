@@ -22,7 +22,9 @@ class StoreClienteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'sometimes|exists:users,id',
+            'user.name' => 'required|string|max:255',
+            'user.email' => 'required|email|unique:users,email',
+            'user.password' => 'nullable|string|min:8',
             'telefone' => 'required|string|max:20',
         ];
     }

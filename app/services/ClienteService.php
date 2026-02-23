@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\Cliente;
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class ClienteService
 {
@@ -69,7 +69,13 @@ class ClienteService
      */
     public function create(array $data)
     {
-        $data['user_id'] = $data['user_id'] ?? Auth::id();
+        $user = User::create([
+            'name' => $data['user']['name'] ?? null,
+            'email' => $data['user']['email'] ?? null,
+            'password' => isset($data['user']['password']) ? bcrypt($data['user']['password']) : null,
+        ]);
+
+        $data['user_id'] = $user->id;
 
         return Cliente::create($data);
     }
