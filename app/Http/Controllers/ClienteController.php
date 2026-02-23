@@ -4,17 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreClienteRequest;
 use App\Http\Requests\UpdateClienteRequest;
-use Inertia\Inertia;
+use App\Models\Cliente;
 
 class ClienteController extends Controller
 {
-    public function __construct() {}
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('cliente/index');
+        //
     }
 
     /**
@@ -28,35 +27,40 @@ class ClienteController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store( $request)
+    public function store(StoreClienteRequest $request)
     {
+        //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show(Cliente $cliente)
     {
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit()
+    public function edit(Cliente $cliente)
     {
+        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update()
+    public function update(UpdateClienteRequest $request, Cliente $cliente)
     {
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy()
+    public function destroy(Cliente $cliente)
     {
+        //
     }
 }
