@@ -23,7 +23,7 @@ class EncomendaSeeder extends Seeder
 
         // Create 2-5 encomendas for each cliente
         foreach ($clientes as $cliente) {
-            $encomendaCount = rand(2, 5);
+            $encomendaCount = rand(1, 3);
 
             for ($i = 0; $i < $encomendaCount; $i++) {
                 Encomenda::create([
