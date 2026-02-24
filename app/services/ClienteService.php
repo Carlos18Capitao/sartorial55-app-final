@@ -14,7 +14,7 @@ class ClienteService
      */
     public function getAll()
     {
-        $clientes = Cliente::with('user')->get();
+        $clientes = Cliente::with(['user', 'encomendas'])->get();
 
         return $clientes->map(function ($cliente) {
             return [
@@ -23,6 +23,15 @@ class ClienteService
                 'email' => $cliente->user->email ?? null,
                 'telefone' => $cliente->telefone,
                 'user_id' => $cliente->user_id,
+                'encomendas' => $cliente->encomendas->map(function ($encomenda) {
+                    return [
+                        'id' => $encomenda->id,
+                        'data_encomenda' => $encomenda->data_encomenda,
+                        'estado' => $encomenda->estado,
+                        'total' => $encomenda->total,
+                        'observacoes' => $encomenda->observacoes,
+                    ];
+                }),
             ];
         });
     }
@@ -35,7 +44,7 @@ class ClienteService
      */
     public function getById($id)
     {
-        $cliente = Cliente::with('user')->find($id);
+        $cliente = Cliente::with(['user', 'encomendas'])->find($id);
 
         if (!$cliente) {
             return null;
@@ -47,6 +56,15 @@ class ClienteService
             'email' => $cliente->user->email ?? null,
             'telefone' => $cliente->telefone,
             'user_id' => $cliente->user_id,
+            'encomendas' => $cliente->encomendas->map(function ($encomenda) {
+                return [
+                    'id' => $encomenda->id,
+                    'data_encomenda' => $encomenda->data_encomenda,
+                    'estado' => $encomenda->estado,
+                    'total' => $encomenda->total,
+                    'observacoes' => $encomenda->observacoes,
+                ];
+            }),
         ];
     }
 
