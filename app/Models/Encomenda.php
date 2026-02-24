@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Encomenda extends Model
 {
@@ -40,6 +41,14 @@ class Encomenda extends Model
     public function cliente(): BelongsTo
     {
         return $this->belongsTo(Cliente::class);
+    }
+
+    /**
+     * Get the itens for the encomenda.
+     */
+    public function itens(): HasMany
+    {
+        return $this->hasMany(ItemEncomenda::class);
     }
 }
 

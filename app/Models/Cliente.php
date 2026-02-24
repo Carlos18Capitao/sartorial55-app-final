@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Cliente extends Model
 {
@@ -36,5 +37,13 @@ class Cliente extends Model
     public function encomendas(): HasMany
     {
         return $this->hasMany(Encomenda::class);
+    }
+
+    /**
+     * Get the default medidas for the cliente.
+     */
+    public function medidas(): HasOne
+    {
+        return $this->hasOne(ClienteMedidas::class);
     }
 }

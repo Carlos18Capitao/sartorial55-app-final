@@ -87,6 +87,20 @@ class ClienteController extends Controller
     }
 
     /**
+     * Update cliente medidas.
+     */
+    public function updateMedidas(Request $request, int $id): JsonResponse
+    {
+        $medidas = $this->clienteService->updateMedidas($id, $request->all());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Medidas atualizadas com sucesso.',
+            'data' => $medidas,
+        ]);
+    }
+
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy(int $id): JsonResponse
