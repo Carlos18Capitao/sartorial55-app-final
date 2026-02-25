@@ -10,11 +10,14 @@ use App\Models\User;
 class EncomendaService
 {
     /**
-     * Get all encomendas.
+     * Get all encomendas with pagination.
+     *
+     * @param int $perPage
+     * @return \Illuminate\Pagination\LengthAwarePaginator
      */
-    public function getAll(): \Illuminate\Database\Eloquent\Collection
+    public function getAll($perPage = 15)
     {
-        return Encomenda::with(['cliente', 'itens.medida'])->get();
+        return Encomenda::with(['cliente', 'itens.medida'])->paginate($perPage);
     }
 
     /**

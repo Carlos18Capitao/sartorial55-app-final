@@ -9,15 +9,17 @@ use App\Models\User;
 class ClienteService
 {
     /**
-     * Get all clientes.
+     * Get all clientes with pagination.
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @param int $perPage
+     * @return \Illuminate\Pagination\LengthAwarePaginator
      */
-    public function getAll()
+    public function getAll($perPage = 15)
     {
-        $clientes = Cliente::with(['user', 'encomendas', 'medidas'])->get();
+        $clientes = Cliente::with(['user', 'encomendas', 'medidas'])
+            ->paginate($perPage);
 
-        return $clientes->map(function ($cliente) {
+        return $clientes->getCollection()->map(function ($cliente) {
             return [
                 'id' => $cliente->id,
                 'name' => $cliente->user->name ?? null,
