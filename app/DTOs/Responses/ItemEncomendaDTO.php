@@ -8,7 +8,7 @@ use App\Models\ItemEncomenda;
 /**
  * DTO for ItemEncomenda response data.
  */
-readonly class ItemEncomendaDTO extends AbstractDTO
+readonly class ItemEncomendaDTO extends AbstractDTO implements \JsonSerializable
 {
     public function __construct(
         public ?int $id = null,
@@ -68,6 +68,35 @@ readonly class ItemEncomendaDTO extends AbstractDTO
             dataPrevisao: $data['data_previsao'] ?? null,
             medida: isset($data['medida']) ? MedidaResponseDTO::fromArray($data['medida']) : null,
         );
+    }
+
+    /**
+     * Convert the DTO to an array with snake_case keys.
+     *
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'tipo' => $this->tipo,
+            'foto' => $this->foto,
+            'estado' => $this->estado,
+            'observacoes' => $this->observacoes,
+            'data_envio' => $this->dataEnvio,
+            'data_previsao' => $this->dataPrevisao,
+            'medida' => $this->medida?->toArray(),
+        ];
+    }
+
+    /**
+     * Serialize the DTO to JSON.
+     *
+     * @return mixed
+     */
+    public function jsonSerialize(): mixed
+    {
+        return $this->toArray();
     }
 }
 

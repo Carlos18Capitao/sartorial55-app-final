@@ -31,7 +31,7 @@ class ClienteController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => $clientes,
+            ...$clientes,
         ]);
     }
 

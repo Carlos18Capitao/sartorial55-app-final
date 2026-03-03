@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * DTO for generic Medida response data (polymorphic).
  */
-readonly class MedidaResponseDTO extends AbstractDTO
+readonly class MedidaResponseDTO extends AbstractDTO implements \JsonSerializable
 {
     public function __construct(
         public ?string $tipo = null,
@@ -150,6 +150,65 @@ readonly class MedidaResponseDTO extends AbstractDTO
             ganchoFrente: isset($data['gancho_frente']) && $data['gancho_frente'] !== '' ? (float) $data['gancho_frente'] : null,
             ganchoAtras: isset($data['gancho_atras']) && $data['gancho_atras'] !== '' ? (float) $data['gancho_atras'] : null,
         );
+    }
+
+    /**
+     * Convert the DTO to an array with snake_case keys.
+     *
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return [
+            'tipo' => $this->tipo,
+            'tipo_model' => $this->tipoModel,
+            // Camisa
+            'colarinho' => $this->colarinho,
+            'ombro_ombro' => $this->ombroOmbro,
+            'peito' => $this->peito,
+            'cintura' => $this->cintura,
+            'anca' => $this->anca,
+            'bicep' => $this->bicep,
+            'comprimento_manga_direita' => $this->comprimentoMangaDireita,
+            'comprimento_manga_esquerda' => $this->comprimentoMangaEsquerda,
+            'comprimento_manga_curta' => $this->comprimentoMangaCurta,
+            'punho_esquerdo' => $this->punhoEsquerdo,
+            'punho_direito' => $this->punhoDireito,
+            'comprimento' => $this->comprimento,
+            // Casaco
+            'base' => $this->base,
+            'distancia_ombro_botao' => $this->distanciaOmoBotao,
+            'comprimento_manga' => $this->comprimentoManga,
+            'boca_manga' => $this->bocaManga,
+            'meia_cinta' => $this->meiaCinta,
+            'meio_ombro' => $this->meioOmbro,
+            'meia_costa' => $this->meiaCosta,
+            'comprimento_costa' => $this->comprimentoCosta,
+            'comprimento_frente' => $this->comprimentoFrente,
+            'racha_lateral' => $this->rachaLateral,
+            // Colete
+            'tamanho' => $this->tamanho,
+            'ombro_botao' => $this->omoBotao,
+            // Calca
+            'cintura_calca' => $this->cinturaCalca,
+            'anca_calca' => $this->ancaCalca,
+            'coxa' => $this->coxa,
+            'joelho' => $this->joelho,
+            'comprimento_calca' => $this->comprimentoCalca,
+            'bainha' => $this->bainha,
+            'gancho_frente' => $this->ganchoFrente,
+            'gancho_atras' => $this->ganchoAtras,
+        ];
+    }
+
+    /**
+     * Serialize the DTO to JSON.
+     *
+     * @return mixed
+     */
+    public function jsonSerialize(): mixed
+    {
+        return $this->toArray();
     }
 }
 

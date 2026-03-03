@@ -25,17 +25,31 @@ class EncomendaService
      * Get all encomendas as DTOs with pagination.
      *
      * @param int $perPage
-     * @return LengthAwarePaginator
+     * @return array
      */
-    public function getAllAsDTO(int $perPage = 15): LengthAwarePaginator
+    public function getAllAsDTO(int $perPage = 15): array
     {
         $encomendas = Encomenda::with(['cliente.user', 'itens.medida'])->paginate($perPage);
 
-        $encomendas->getCollection()->transform(function ($encomenda) {
-            return EncomendaDTO::fromModel($encomenda);
-        });
+        $items = $encomendas->getCollection()->map(function ($encomenda) {
+            return EncomendaDTO::fromModel($encomenda)->toArray();
+        })->toArray();
 
-        return $encomendas;
+        return [
+            'current_page' => $encomendas->currentPage(),
+            'data' => $items,
+            'first_page_url' => $encomendas->url(1),
+            'from' => $encomendas->firstItem(),
+            'last_page' => $encomendas->lastPage(),
+            'last_page_url' => $encomendas->url($encomendas->lastPage()),
+            'links' => $encomendas->linkCollection()->toArray(),
+            'next_page_url' => $encomendas->nextPageUrl(),
+            'path' => $encomendas->path(),
+            'per_page' => $encomendas->perPage(),
+            'prev_page_url' => $encomendas->previousPageUrl(),
+            'to' => $encomendas->lastItem(),
+            'total' => $encomendas->total(),
+        ];
     }
 
     /**

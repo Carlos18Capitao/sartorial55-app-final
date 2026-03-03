@@ -28,17 +28,31 @@ class ClienteService
      * Get all clientes as DTOs with pagination.
      *
      * @param int $perPage
-     * @return LengthAwarePaginator
+     * @return array
      */
-    public function getAllAsDTO(int $perPage = 15): LengthAwarePaginator
+    public function getAllAsDTO(int $perPage = 15): array
     {
         $clientes = Cliente::with(['user', 'encomendas.itens.medida', 'medidas'])->paginate($perPage);
 
-        $clientes->getCollection()->transform(function ($cliente) {
-            return ClienteDTO::fromModel($cliente);
-        });
+        $items = $clientes->getCollection()->map(function ($cliente) {
+            return ClienteDTO::fromModel($cliente)->toArray();
+        })->toArray();
 
-        return $clientes;
+        return [
+            'current_page' => $clientes->currentPage(),
+            'data' => $items,
+            'first_page_url' => $clientes->url(1),
+            'from' => $clientes->firstItem(),
+            'last_page' => $clientes->lastPage(),
+            'last_page_url' => $clientes->url($clientes->lastPage()),
+            'links' => $clientes->linkCollection()->toArray(),
+            'next_page_url' => $clientes->nextPageUrl(),
+            'path' => $clientes->path(),
+            'per_page' => $clientes->perPage(),
+            'prev_page_url' => $clientes->previousPageUrl(),
+            'to' => $clientes->lastItem(),
+            'total' => $clientes->total(),
+        ];
     }
 
     /**

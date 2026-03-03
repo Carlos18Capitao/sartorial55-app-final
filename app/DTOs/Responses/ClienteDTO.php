@@ -8,7 +8,7 @@ use App\Models\Cliente;
 /**
  * DTO for Cliente response data.
  */
-readonly class ClienteDTO extends AbstractDTO
+readonly class ClienteDTO extends AbstractDTO implements \JsonSerializable
 {
     public function __construct(
         public ?int $id = null,
@@ -31,12 +31,14 @@ readonly class ClienteDTO extends AbstractDTO
     {
         $medidasDTO = null;
         $encomendasDTOs = null;
-
-        // User data - always needed
-        $userName = $cliente->user?->name;
-        $userEmail = $cliente->user?->email;
+        $userName = null;
+        $userEmail = null;
 
         if ($includeRelations) {
+            // User data
+            $userName = $cliente->user?->name;
+            $userEmail = $cliente->user?->email;
+
             // Medidas data
             if ($cliente->relationLoaded('medidas') && $cliente->medidas) {
                 $medidasDTO = ClienteMedidasDTO::fromModel($cliente->medidas);
@@ -53,8 +55,8 @@ readonly class ClienteDTO extends AbstractDTO
         return new static(
             id: $cliente->id,
             userId: $cliente->user_id,
-            name: $userName ?? null,
-            email: $userEmail ?? null,
+            name: $userName ?? $cliente->user?->name,
+            email: $userEmail ?? $cliente->user?->email,
             telefone: $cliente->telefone,
             medidas: $medidasDTO,
             encomendas: $encomendasDTOs,
@@ -210,6 +212,34 @@ readonly class ClienteDTO extends AbstractDTO
                 ? array_map(fn($item) => self::mapItemEncomendaArray($item), $encomenda['itens'])
                 : [],
         ];
+    }
+
+    /**
+     * Convert the DTO to an array with snake_case keys.
+     *
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'user_id' => $this->userId,
+            'name' => $this->name,
+            'email' => $this->email,
+            'telefone' => $this->telefone,
+            'medidas' => $this->medidas?->toArray(),
+            'encomendas' => $this->encomendas,
+        ];
+    }
+
+    /**
+     * Serialize the DTO to JSON.
+     *
+     * @return mixed
+     */
+    public function jsonSerialize(): mixed
+    {
+        return $this->toArray();
     }
 }
 

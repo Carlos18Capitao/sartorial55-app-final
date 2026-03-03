@@ -32,7 +32,7 @@ class EncomendaController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => $encomendas,
+            ...$encomendas,
         ]);
     }
 
