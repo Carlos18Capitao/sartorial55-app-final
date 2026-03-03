@@ -1,38 +1,35 @@
-# TODO: Implement Default Measurements for ItemEncomenda
+# TODO - Implementação do Padrão DTO
 
-## Task Understanding
-When creating an ItemEncomenda with "default" measurements, the system should copy the default measurements from ClienteMedidas (the customer's default measurements) to the specific measure table (MedidaCamisa, MedidaColete, etc.).
+## Phase 1: Criar Estrutura Base de DTOs
+- [x] 1.1 Criar diretório app/DTOs
+- [x] 1.2 Criar AbstractDTO.php (classe base)
+- [x] 1.3 Criar estrutura de diretórios Requests e Responses
 
-## Implementation Status
+## Phase 2: Criar DTOs de Request (Entrada)
+- [x] 2.1 CreateEncomendaDTO.php
+- [x] 2.2 UpdateEncomendaDTO.php
+- [x] 2.3 AddItemEncomendaDTO.php
+- [x] 2.4 UpdateItemEncomendaDTO.php
+- [x] 2.5 CreateClienteDTO.php
+- [x] 2.6 UpdateClienteDTO.php
+- [x] 2.7 UpdateClienteMedidasDTO.php
 
-### ✅ COMPLETED
+## Phase 3: Criar DTOs de Response (Saída)
+- [x] 3.1 ClienteDTO.php
+- [x] 3.2 EncomendaDTO.php
+- [x] 3.3 ItemEncomendaDTO.php
+- [x] 3.4 ClienteMedidasDTO.php
+- [x] 3.5 UserDTO.php
 
-1. **Migration** (`database/migrations/2026_02_24_135306_add_cliente_medidas_id_to_item_encomendas_table.php`)
-   - Added `cliente_medidas_id` foreign key to item_encomendas table
+## Phase 4: Modificar Serviços
+- [x] 4.1 Refatorar EncomendaService.php para usar DTOs
+- [x] 4.2 Refatorar ClienteService.php para usar DTOs
 
-2. **ItemEncomenda Model** (`app/Models/ItemEncomenda.php`)
-   - Added `cliente_medidas_id` to `$fillable`
-   - Added relationship `clienteMedidas()` to ClienteMedidas
-   - Added method `createMedidaFromDefault()` to create measure from default
+## Phase 5: Modificar Controllers
+- [x] 5.1 Refatorar EncomendaController.php
+- [x] 5.2 Refatorar ClienteController.php
 
-3. **MedidaCamisa Model** (`app/Models/MedidaCamisa.php`)
-   - Added `createFromDefault()` method to create from ClienteMedidas
-   - Mapping: all fields directly map (comprimento_camisa → comprimento)
-
-4. **MedidaColete Model** (`app/Models/MedidaColete.php`)
-   - Added `createFromDefault()` method to create from ClienteMedidas
-   - Mapping:
-     - tamanho_colete → tamanho
-     - ombro_botao_colete → ombro_botao
-     - comprimento_frente_colete → comprimento_frente
-     - comprimento_costa_colete → comprimento_costa
-     - meia_cinta_colete → meia_cinta
-
-5. **ItemEncomendaFactory** (`database/factories/ItemEncomendaFactory.php`)
-   - Added `camisaWithDefaultMedidas()` method
-   - Added `coleteWithDefaultMedidas()` method
-
-### NEXT STEPS
-- Run migrations: `php artisan migrate`
-- Test the implementation by creating items with default measurements
+## Phase 6: Testes
+- [x] 6.1 Executar testes existentes
+- [x] 6.2 Verificar se a API continua a funcionar corretamente
 
