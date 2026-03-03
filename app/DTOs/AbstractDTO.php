@@ -35,7 +35,7 @@ abstract readonly class AbstractDTO
             if ($value instanceof AbstractDTO) {
                 $data[$property->getName()] = $value->toArray();
             } elseif ($value instanceof \DateTimeInterface) {
-                $data[$property->getName()] = $value->format('Y-m-d');
+                $data[$property->getName()] = $value->format('d-m-Y');
             } elseif (is_array($value)) {
                 $data[$property->getName()] = array_map(function ($item) {
                     if ($item instanceof AbstractDTO) {

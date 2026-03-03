@@ -44,8 +44,8 @@ readonly class ItemEncomendaDTO extends AbstractDTO
             foto: $item->foto,
             estado: $item->estado,
             observacoes: $item->observacoes,
-            dataEnvio: $item->data_envio?->format('Y-m-d'),
-            dataPrevisao: $item->data_previsao?->format('Y-m-d'),
+            dataEnvio: $item->data_envio?->format('d-m-Y'),
+            dataPrevisao: $item->data_previsao?->format('d-m-Y'),
             medida: $medidaDTO,
         );
     }

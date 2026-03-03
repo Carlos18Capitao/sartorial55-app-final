@@ -46,7 +46,7 @@ readonly class EncomendaDTO extends AbstractDTO
         return new static(
             id: $encomenda->id,
             clienteId: $encomenda->cliente_id,
-            dataEncomenda: $encomenda->data_encomenda?->format('Y-m-d'),
+            dataEncomenda: $encomenda->data_encomenda?->format('d-m-Y'),
             estado: $encomenda->estado,
             total: $encomenda->total,
             observacoes: $encomenda->observacoes,
