@@ -4,31 +4,51 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Encomenda extends Model
 {
     /** @use HasFactory<\Database\Factories\EncomendaFactory> */
     use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
-        'numero',
-        'data',
-        'status',
-        'observacao',
-        'cliente_id'
+        'cliente_id',
+        'data_encomenda',
+        'estado',
+        'total',
+        'observacoes',
     ];
-    protected $table = 'encomendas';
 
-    public function getDataAttribute($value)
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'data_encomenda' => 'date',
+        'total' => 'decimal:2',
+    ];
+
+    /**
+     * Get the cliente that owns the encomenda.
+     */
+    public function cliente(): BelongsTo
     {
-        return $value ? \Carbon\Carbon::parse($value)->format('d/m/Y') : null;
+        return $this->belongsTo(Cliente::class);
     }
 
-    public function cliente()
+    /**
+     * Get the itens for the encomenda.
+     */
+    public function itens(): HasMany
     {
-        return $this->belongsTo(Cliente::class, 'cliente_id');
-    }
-    public function itens()
-    {
-        return $this->hasMany(Item::class, 'encomenda_id');
+        return $this->hasMany(ItemEncomenda::class);
     }
 }
+

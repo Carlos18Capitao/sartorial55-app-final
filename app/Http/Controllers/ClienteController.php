@@ -4,24 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreClienteRequest;
 use App\Http\Requests\UpdateClienteRequest;
-use App\Services\ClienteService;
 use App\Models\Cliente;
+use App\Services\ClienteService;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 
 class ClienteController extends Controller
 {
-    public function __construct(private ClienteService $service) {}
+    protected $clienteService;
+
+    public function __construct(ClienteService $clienteService)
+    {
+        $this->clienteService = $clienteService;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $clientes = $this->service->getAll();
-        return Inertia::render('cliente/index',
-            [
-                'clientes' => $clientes
-            ]
-        );
+        $clientes = $this->clienteService->getAll();
+
+        return Inertia::render('Clientes/Index', [
+            'clientes' => $clientes,
+        ]);
     }
 
     /**
@@ -29,16 +35,18 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Clientes/Create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreClienteRequest $request)
+    public function store(StoreClienteRequest $request): RedirectResponse
     {
-        $this->service->new($request->all());
-        return redirect()->route('clientes.index')->with('success', 'Cliente cadastrado com sucesso!');
+        $this->clienteService->create($request->validated());
+
+        return redirect()->route('clientes.index')
+            ->with('success', 'Cliente criado com sucesso.');
     }
 
     /**
@@ -46,7 +54,11 @@ class ClienteController extends Controller
      */
     public function show(Cliente $cliente)
     {
-        return $this->service->findOne($cliente);
+        $cliente = $this->clienteService->getById($cliente->id);
+
+        return Inertia::render('Clientes/Show', [
+            'cliente' => $cliente,
+        ]);
     }
 
     /**
@@ -54,24 +66,32 @@ class ClienteController extends Controller
      */
     public function edit(Cliente $cliente)
     {
-        return inertia::render('clientes.edit');
+        $cliente = $this->clienteService->getById($cliente->id);
+
+        return Inertia::render('Clientes/Edit', [
+            'cliente' => $cliente,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateClienteRequest $request, Cliente $cliente)
+    public function update(UpdateClienteRequest $request, Cliente $cliente): RedirectResponse
     {
-        $this->service->update($request->all());
-        return redirect()->route('clientes.index')->with('success', 'Cliente atualizado com sucesso!');
+        $this->clienteService->update($cliente->id, $request->validated());
+
+        return redirect()->route('clientes.index')
+            ->with('success', 'Cliente atualizado com sucesso.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cliente $cliente)
+    public function destroy(Cliente $cliente): RedirectResponse
     {
-        $this->service->delete($cliente->id);
-        return redirect()->route('clientes.index')->with('success', 'Cliente deletado com sucesso!');
+        $this->clienteService->delete($cliente->id);
+
+        return redirect()->route('clientes.index')
+            ->with('success', 'Cliente excluído com sucesso.');
     }
 }

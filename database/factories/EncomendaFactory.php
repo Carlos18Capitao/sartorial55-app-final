@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Cliente;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,11 +18,12 @@ class EncomendaFactory extends Factory
     public function definition(): array
     {
         return [
-            'numero' => $this->faker->unique()->numerify('ENC-#####'),
-            'data' => $this->faker->dateTimeBetween('now', '+1 year'),
-            'status' => $this->faker->randomElement(['Pendente', 'Em Produção', 'Concluída']),
-            'observacao' => $this->faker->optional()->sentence(),
-            'cliente_id' => \App\Models\Cliente::factory(),
+            'cliente_id' => Cliente::factory(),
+            'data_encomenda' => $this->faker->date(),
+            'estado' => $this->faker->randomElement(['pendente', 'em_processamento', 'enviada', 'entregue', 'cancelada']),
+            'total' => $this->faker->randomFloat(2, 10, 1000),
+            'observacoes' => $this->faker->optional()->sentence(),
         ];
     }
 }
+

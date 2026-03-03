@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # TODO: Implementar funcionalidade "Adicionar Item" na página de encomenda
 
 ## Passos a serem executados:
@@ -27,3 +28,14 @@
 ### 5. Testes e ajustes
 - [ ] Testar a funcionalidade completa
 - [ ] Ajustar estilos e comportamentos conforme necessário
+=======
+# TODO - Refatoração Object Calisthenics (Evitar Else)
+
+## Tarefas
+- [ ] 1. Refatorar AbstractDTO.php - Remover else desnecessário
+- [ ] 2. Refatorar ClienteDTO.php (app/DTOs/Responses/) - Mover userName/userEmail para fora do if/else
+- [ ] 3. Refatorar ClienteDTO.php (app/DTOs/Responses/Responses/) - Mover userName/userEmail para fora do if/else
+
+## Progresso
+
+>>>>>>> develop

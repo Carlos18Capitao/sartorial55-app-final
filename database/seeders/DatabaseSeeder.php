@@ -3,8 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Cliente;
-use App\Models\Encomenda;
-use App\Models\Item;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -18,23 +16,13 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
 
-        // Criar 10 clientes com encomendas
-        Cliente::factory(2)->create()->each(function ($cliente) {
-            // Cada cliente tem pelo menos 1 encomenda
-            $cliente->encomendas()->saveMany(
-                Encomenda::factory(1)->make()
-            )->each(function ($encomenda) {
-                // Cada encomenda tem pelo menos 1 item
-                $numItens = rand(1, 2);
-                $encomenda->itens()->saveMany(
-                    Item::factory($numItens)->make()
-                );
-            });
-        });
+        // Criar 1 clientesa
+        Cliente::factory(1)->create();
+
+        // Seed encomendas com itens e medidas
+        $this->call([
+            EncomendaSeeder::class,
+        ]);
     }
 }
