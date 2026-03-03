@@ -32,11 +32,11 @@ readonly class ClienteDTO extends AbstractDTO
         $medidasDTO = null;
         $encomendasDTOs = null;
 
-        if ($includeRelations) {
-            // User data
-            $userName = $cliente->user?->name;
-            $userEmail = $cliente->user?->email;
+        // User data - always needed
+        $userName = $cliente->user?->name;
+        $userEmail = $cliente->user?->email;
 
+        if ($includeRelations) {
             // Medidas data
             if ($cliente->relationLoaded('medidas') && $cliente->medidas) {
                 $medidasDTO = ClienteMedidasDTO::fromModel($cliente->medidas);
@@ -48,9 +48,6 @@ readonly class ClienteDTO extends AbstractDTO
                     return self::mapEncomendaToArray($encomenda);
                 })->toArray();
             }
-        } else {
-            $userName = $cliente->user?->name;
-            $userEmail = $cliente->user?->email;
         }
 
         return new static(

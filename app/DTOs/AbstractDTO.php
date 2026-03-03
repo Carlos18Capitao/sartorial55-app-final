@@ -32,20 +32,15 @@ abstract readonly class AbstractDTO
         foreach ($reflection->getProperties(\ReflectionProperty::IS_PUBLIC) as $property) {
             $value = $property->getValue($this);
 
-            if ($value instanceof AbstractDTO) {
-                $data[$property->getName()] = $value->toArray();
-            } elseif ($value instanceof \DateTimeInterface) {
-                $data[$property->getName()] = $value->format('d-m-Y');
-            } elseif (is_array($value)) {
-                $data[$property->getName()] = array_map(function ($item) {
-                    if ($item instanceof AbstractDTO) {
-                        return $item->toArray();
-                    }
-                    return $item;
-                }, $value);
-            } else {
-                $data[$property->getName()] = $value;
-            }
+            $data[$property->getName()] = match (true) {
+                $value instanceof AbstractDTO => $value->toArray(),
+                $value instanceof \DateTimeInterface => $value->format('d-m-Y'),
+                is_array($value) => array_map(
+                    fn($item) => $item instanceof AbstractDTO ? $item->toArray() : $item,
+                    $value
+                ),
+                default => $value,
+            };
         }
 
         return $data;
