@@ -95,7 +95,7 @@ readonly class ClienteDTO extends AbstractDTO
     {
         return [
             'id' => $encomenda->id,
-            'data_encomenda' => $encomenda->data_encomenda?->format('Y-m-d'),
+            'data_encomenda' => $encomenda->data_encomenda?->format('d-m-Y'),
             'estado' => $encomenda->estado,
             'total' => $encomenda->total,
             'observacoes' => $encomenda->observacoes,
@@ -189,8 +189,8 @@ readonly class ClienteDTO extends AbstractDTO
             'foto' => $item->foto,
             'estado' => $item->estado,
             'observacoes' => $item->observacoes,
-            'data_envio' => $item->data_envio?->format('Y-m-d'),
-            'data_previsao' => $item->data_previsao?->format('Y-m-d'),
+            'data_envio' => $item->data_envio?->format('d-m-Y'),
+            'data_previsao' => $item->data_previsao?->format('d-m-Y'),
             'medida' => $medida,
         ];
     }
