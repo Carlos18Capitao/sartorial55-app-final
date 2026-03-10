@@ -1,7 +1,6 @@
 <template>
     <div>
         <h1>Clientes</h1>
-        {{ JSON.stringify(clientes) }}
         <!-- <table>
             <thead>
                 <tr>
