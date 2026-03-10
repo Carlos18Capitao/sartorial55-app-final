@@ -1,9 +1,11 @@
+<template>
+
+    <Head title="Dashboard" />
+    <div>
+            <h1>Bem-vindo ao Dashboard!</h1>
+    </div>
+</template>
 <script setup>
-import { onMounted } from 'vue'
+import { ref } from 'vue'
 
 </script>
-
-<template>
-<h1>Home</h1>
-
-</template>
