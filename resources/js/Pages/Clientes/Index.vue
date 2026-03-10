@@ -1,29 +1,6 @@
 <template>
     <div>
-        <h1>Clientes</h1>
-        <!-- <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Telefone</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="cliente in clientes" :key="cliente.id">
-                    <td>{{ cliente.id }}</td>
-                    <td>{{ cliente.name }}</td>
-                    <td>{{ cliente.email }}</td>
-                    <td>{{ cliente.telefone }}</td>
-                    <td>
-                        <InertiaLink :href="route('clientes.edit', cliente.id)">Editar</InertiaLink>
-                        <button @click="deleteCliente(cliente.id)">Excluir</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table> -->
+        
     </div>
 </template>
 <script setup>
