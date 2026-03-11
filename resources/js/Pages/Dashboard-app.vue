@@ -616,19 +616,19 @@ import { Link } from '@inertiajs/vue3';
                     <ul class="navbar-nav" id="navbar-nav">
                         <li class="menu-title"><span data-key="t-menu">Menu</span></li>
                         <li class="nav-item">
-                            <Link class="nav-link menu-link " :href="route('home')" role="button"
+                            <Link :class="$page.url.startsWith('/home') ? 'nav-link menu-link active' : 'nav-link menu-link'" :href="route('home')" role="button"
                                 aria-expanded="false" aria-controls="sidebarDashboards">
                                 <span data-key="t-dashboards">Dashboards</span>
                             </Link>
                         </li>
                         <li class="nav-item">
-                            <Link class="nav-link menu-link" :href="route('clientes.index')" role="button"
+                            <Link :class="$page.url.startsWith('/clientes') ? 'nav-link menu-link active' : 'nav-link menu-link'" :href="route('clientes.index')" role="button"
                                 aria-expanded="false" aria-controls="sidebarDashboards">
                                 <span data-key="t-dashboards">Clientes</span>
                             </Link>
                         </li>
                         <li class="nav-item">
-                            <Link class="nav-link menu-link" href="#" role="button" aria-expanded="false"
+                            <Link :class="$page.url.startsWith('/encomendas') ? 'nav-link menu-link active' : 'nav-link menu-link'" :href="route('encomendas.index')" role="button" aria-expanded="false"
                                 aria-controls="sidebarDashboards">
                                 <span data-key="t-dashboards">Encomendas</span>
                             </Link>
