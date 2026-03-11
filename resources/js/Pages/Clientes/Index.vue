@@ -1,10 +1,13 @@
 <template>
-    <div>
-        <h1>Clientes</h1>
-    </div>
+    <DashboardApp>
+        <template #header>
+            <h1>Clientes</h1>
+        </template>
+    </DashboardApp>
 </template>
 <script setup>
 import { ref } from 'vue'
+import DashboardApp from '../Dashboard-app.vue'
 
 const props = defineProps({
     clientes: {
