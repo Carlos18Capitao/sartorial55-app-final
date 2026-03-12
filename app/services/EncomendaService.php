@@ -18,7 +18,7 @@ class EncomendaService
      */
     public function getAll(int $perPage = 15): LengthAwarePaginator
     {
-        return Encomenda::with(['cliente', 'itens.medida'])->paginate($perPage);
+        return Encomenda::with(['cliente.user', 'itens.medida'])->paginate($perPage);
     }
 
     /**
