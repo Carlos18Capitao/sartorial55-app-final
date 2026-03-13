@@ -10,14 +10,15 @@ use App\Services\EncomendaService;
 
 class EncomendaController extends Controller
 {
+    public function __construct(public EncomendaService $encomendaService){}
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $encomendas = new EncomendaService;
         return Inertia::render('encomenda/Index', [
-            'encomendas' => $encomendas->getAll()
+            'encomendas' => $this->encomendaService->getAll()
         ]);
     }
 
@@ -66,6 +67,7 @@ class EncomendaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $this->encomendaService->deleteEncomenda($id);
+        return redirect()->route('encomendas.index')->with('success', 'Encomenda eliminada com sucesso!');
     }
 }

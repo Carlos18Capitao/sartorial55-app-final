@@ -22,6 +22,7 @@
     <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- custom Css-->
     <link href="{{ asset('assets/css/custom.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet" type="text/css" />
 
 
     @routes

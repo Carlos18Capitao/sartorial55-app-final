@@ -56,7 +56,7 @@
                                                 <a v-if="encomenda.calca_count" href="javascript: void(0);"
                                                     class="avatar-group-item">
                                                     <img src="storage/icons/measure-2.png" alt="Calça"
-                                                        class="rounded-circle avatar-xxs">
+                                                        class="avatar-xs">
                                                     <span
                                                         class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger">{{
                                                         encomenda.calca_count }}</span>
@@ -64,7 +64,7 @@
                                                 <a v-if="encomenda.camisa_count" href="javascript: void(0);"
                                                     class="avatar-group-item">
                                                     <img src="storage/icons/size.png" alt="Camisa"
-                                                        class="rounded-circle avatar-xxs">
+                                                        class="avatar-xs">
                                                     <span
                                                         class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-primary">{{
                                                         encomenda.camisa_count }}</span>
@@ -72,7 +72,7 @@
                                                 <a v-if="encomenda.casaco_count" href="javascript: void(0);"
                                                     class="avatar-group-item">
                                                     <img src="storage/icons/suit-5.png" alt="Casaco"
-                                                        class="rounded-circle avatar-xxs">
+                                                        class="avatar-xs">
                                                     <span
                                                         class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-success">{{
                                                         encomenda.casaco_count }}</span>
@@ -80,7 +80,7 @@
                                                 <a v-if="encomenda.fato_count" href="javascript: void(0);"
                                                     class="avatar-group-item">
                                                     <img src="storage/icons/business-suit.png" alt="Fato"
-                                                        class="rounded-circle avatar-xxs">
+                                                        class="avatar-xs">
                                                     <span
                                                         class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-warning">{{
                                                         encomenda.fato_count }}</span>
@@ -88,7 +88,7 @@
                                                 <a v-if="encomenda.sapato_count" href="javascript: void(0);"
                                                     class="avatar-group-item">
                                                     <img src="storage/icons/smart-shoe.png" alt="Sapato"
-                                                        class="rounded-circle avatar-xxs">
+                                                        class="avatar-xs">
                                                     <span
                                                         class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-info">{{
                                                         encomenda.sapato_count }}</span>
@@ -113,9 +113,10 @@
                                                             data-bs-toggle="modal">View</Link>
                                                     </li>
                                                     <li>
-                                                        <Link class="dropdown-item regenerate-api-btn"
-                                                            href="#api-key-modal" data-bs-toggle="modal">Delete
-                                                            Key</Link>
+                                                        <a @click.preventDefault="deleteEncomenda(encomenda.id)" class="dropdown-item regenerate-api-btn"
+                                                            href="#" >Delete
+                                                    </a>
+
                                                     </li>
                                                 </ul>
                                             </div>
@@ -154,7 +155,8 @@
 <script setup>
 import DashboardApp from '../Dashboard-app.vue'
 import { computed, defineProps } from 'vue'
-import { Link } from '@inertiajs/vue3'
+import { Link, useForm } from '@inertiajs/vue3'
+import axios from 'axios'
 
 const props = defineProps({
     encomendas: Object
@@ -210,4 +212,19 @@ const getProgress = (encomenda) => {
     if (encomenda.estado?.toLowerCase().includes('progress')) return 65
     return 20
 }
+
+
+const form = useForm();
+
+
+const deleteEncomenda = (id) => {
+    form.delete(route('encomendas.destroy', id), {
+        preserveScroll: true,
+    
+        //onSuccess: () => closeModal(),
+        //onError: () => passwordInput.value.focus(),
+        //onFinish: () => form.reset(),
+    });
+};
+
 </script>
