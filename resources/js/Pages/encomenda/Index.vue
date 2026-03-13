@@ -139,7 +139,7 @@
                             <ul class="pagination pagination-separated pagination-sm mb-0">
                                 <li v-for="(link, idx) in links" :key="idx"
                                     :class="['page-item', { disabled: !link.url, active: link.active }]">
-                                    <Link v-if="link.url" :href="link.url" class="page-link" v-html="link.label"></Link>
+                                    <Link preserve-scroll v-if="link.url" :href="link.url" class="page-link" v-html="link.label"></Link>
                                     <span v-else class="page-link" v-html="link.label"></span>
                                 </li>
                             </ul>
