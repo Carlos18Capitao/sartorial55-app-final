@@ -218,13 +218,28 @@ const form = useForm();
 
 
 const deleteEncomenda = (id) => {
-    form.delete(route('encomendas.destroy', id), {
-        preserveScroll: true,
-    
-        //onSuccess: () => closeModal(),
-        //onError: () => passwordInput.value.focus(),
-        //onFinish: () => form.reset(),
-    });
+
+    swal.fire({
+        title: 'Tem a certeza?',
+        text: "Esta ação não pode ser desfeita!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim, eliminar!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.delete(route('encomendas.destroy', id), {
+                preserveScroll: true
+            });
+            performDelete(id);
+            swal.fire(
+                'Eliminada!',
+                'A encomenda foi eliminada.',
+                'success'
+            )
+        }
+    })
 };
 
 </script>
