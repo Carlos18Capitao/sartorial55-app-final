@@ -33,7 +33,7 @@ class EncomendaSeeder extends Seeder
         // Para cada cliente, criar algumas encomendas
         $clientes->each(function ($cliente) {
             $encomendas = Encomenda::factory()
-                ->count(rand(1, 5))
+                ->count(1)
                 ->create([
                     'cliente_id' => $cliente->id,
                 ]);
