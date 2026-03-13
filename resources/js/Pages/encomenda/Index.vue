@@ -31,12 +31,16 @@
                                     <!-- end tr -->
                                     <tr v-for="(encomenda, index) in encomendasList" :key="index">
                                         <td>
-                                            <img src="assets/images/users/avatar-3.jpg" class="avatar-xxs rounded-circle me-1" alt="">
-                                            <a href="javascript: void(0);" class="text-reset">{{ encomenda.cliente.user.name }}</a>
+                                            <img src="assets/images/users/avatar-3.jpg"
+                                                class="avatar-xxs rounded-circle me-1" alt="">
+                                            <a href="javascript: void(0);" class="text-reset">{{
+                                                encomenda.cliente.user.name
+                                                }}</a>
                                         </td>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0 text-muted me-1">{{ getProgress(encomenda) }}%</div>
+                                                <div class="flex-shrink-0 text-muted me-1">{{ getProgress(encomenda) }}%
+                                                </div>
                                                 <div class="progress progress-sm flex-grow-1"
                                                     :style="`width: ${getProgress(encomenda)}%`">
                                                     <div class="progress-bar bg-primary rounded" role="progressbar"
@@ -49,24 +53,22 @@
                                         </td>
                                         <td>
                                             <div class="avatar-group">
-                                                <div class="avatar-group-item">
+                                                <div class="avatar-group-item" v-for="i in Math.min(encomenda.itens_count, 5)" :key="i">
                                                     <a href="javascript: void(0);" class="d-inline-block">
                                                         <img src="assets/images/users/avatar-7.jpg" alt=""
                                                             class="rounded-circle avatar-xxs">
-                                                    </a>
-                                                </div>
-                                                <div class="avatar-group-item">
-                                                    <a href="javascript: void(0);" class="d-inline-block">
-                                                        <img src="assets/images/users/avatar-8.jpg" alt=""
-                                                            class="rounded-circle avatar-xxs">
+                                                        <span
+                                                            class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger">{{ i }}</span>
                                                     </a>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
-                                            <span :class="`badge ${getStatusBadge(encomenda.estado).class}`">{{ getStatusBadge(encomenda.estado).text }}</span>
+                                            <span :class="`badge ${getStatusBadge(encomenda.estado).class}`">{{
+                                                getStatusBadge(encomenda.estado).text }}</span>
                                         </td>
-                                        <td class="text-muted">{{ formatDate(encomenda.created_at, 'dd/MM/yyyy') }}</td>
+                                        <td class="text-muted">{{ formatDate(encomenda.data_encomenda, 'dd/MM/yyyy') }}
+                                        </td>
                                         <td>
                                             <div class="dropdown">
                                                 <button class="btn btn-soft-secondary btn-sm dropdown" type="button"

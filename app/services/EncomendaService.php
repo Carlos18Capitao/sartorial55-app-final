@@ -18,7 +18,16 @@ class EncomendaService
      */
     public function getAll(int $perPage = 15): LengthAwarePaginator
     {
-        return Encomenda::with(['cliente.user', 'itens.medida'])->paginate($perPage);
+        return Encomenda::with('cliente.user')
+            ->withCount([
+                'itens',
+                'itens as camisa_count' => fn ($query) => $query->where('tipo', 'camisa'),
+                'itens as casaco_count' => fn ($query) => $query->where('tipo', 'casaco'),
+                'itens as colete_count' => fn ($query) => $query->where('tipo', 'colete'),
+                'itens as calca_count' => fn ($query) => $query->where('tipo', 'calca'),
+                'itens as fato_count' => fn ($query) => $query->where('tipo', 'fato'),
+            ])
+            ->paginate($perPage);
     }
 
     /**
