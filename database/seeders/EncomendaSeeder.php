@@ -21,7 +21,7 @@ class EncomendaSeeder extends Seeder
     {
         // Criar clientes com medidas default
         $clientes = Cliente::factory()
-            ->count(3)
+            ->count(45)
             ->create()
             ->each(function ($cliente) {
                 // Criar medidas default para cada cliente
@@ -33,7 +33,7 @@ class EncomendaSeeder extends Seeder
         // Para cada cliente, criar algumas encomendas
         $clientes->each(function ($cliente) {
             $encomendas = Encomenda::factory()
-                ->count(rand(1, 3))
+                ->count(rand(1, 5))
                 ->create([
                     'cliente_id' => $cliente->id,
                 ]);

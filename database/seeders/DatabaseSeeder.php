@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
 
 
         // Criar 1 clientesa
-        Cliente::factory(1)->create();
+        //Cliente::factory(1)->create();
 
         // Seed encomendas com itens e medidas
         $this->call([

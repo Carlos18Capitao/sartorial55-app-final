@@ -126,26 +126,21 @@
                             </table><!-- end table -->
                         </div>
 
+                        <!-- paginacao dinamica usando 'links' passado por props -->
                         <div class="align-items-center mt-xl-3 mt-4 justify-content-between d-flex">
                             <div class="flex-shrink-0">
-                                <div class="text-muted">Showing <span class="fw-semibold">5</span> of <span
-                                        class="fw-semibold">25</span> Results </div>
+                                <div class="text-muted">
+                                    Estas a ver <span class="fw-semibold">{{ encomendas.from }}</span> a
+                                    <span class="fw-semibold">{{ encomendas.to }}</span> de
+                                    <span class="fw-semibold">{{ encomendas.total }}</span> Resultados
+                                </div>
                             </div>
+
                             <ul class="pagination pagination-separated pagination-sm mb-0">
-                                <li class="page-item disabled">
-                                    <a href="#" class="page-link">←</a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link">1</a>
-                                </li>
-                                <li class="page-item active">
-                                    <a href="#" class="page-link">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link">3</a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link">→</a>
+                                <li v-for="(link, idx) in links" :key="idx"
+                                    :class="['page-item', { disabled: !link.url, active: link.active }]">
+                                    <Link v-if="link.url" :href="link.url" class="page-link" v-html="link.label"></Link>
+                                    <span v-else class="page-link" v-html="link.label"></span>
                                 </li>
                             </ul>
                         </div>
