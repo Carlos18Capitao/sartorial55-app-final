@@ -29,7 +29,7 @@
 
                                 <tbody>
                                     <!-- end tr -->
-                                    <tr v-for="(encomenda, index) in encomendasList" :key="index">
+                                    <tr v-for="(encomenda, index) in encomendasList" :key="index" :id="`encomenda-${encomenda.id}`">
                                         <td>
                                             <img src="assets/images/users/avatar-3.jpg"
                                                 class="avatar-xxs rounded-circle me-1" alt="">
@@ -156,7 +156,7 @@
 import DashboardApp from '../Dashboard-app.vue'
 import { computed, defineProps } from 'vue'
 import { Link, useForm } from '@inertiajs/vue3'
-import axios from 'axios'
+import Swal from 'sweetalert2'
 
 const props = defineProps({
     encomendas: Object
@@ -219,7 +219,7 @@ const form = useForm();
 
 const deleteEncomenda = (id) => {
 
-    swal.fire({
+    Swal.fire({
         title: 'Tem a certeza?',
         text: "Esta ação não pode ser desfeita!",
         icon: 'warning',
@@ -232,8 +232,9 @@ const deleteEncomenda = (id) => {
             form.delete(route('encomendas.destroy', id), {
                 preserveScroll: true
             });
-            performDelete(id);
-            swal.fire(
+            document.getElementById(`encomenda-${id}`).remove();
+            //performDelete(id);
+            Swal.fire(
                 'Eliminada!',
                 'A encomenda foi eliminada.',
                 'success'
