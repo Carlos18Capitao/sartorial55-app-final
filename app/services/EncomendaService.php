@@ -19,14 +19,7 @@ class EncomendaService
     public function getAll(int $perPage = 15): LengthAwarePaginator
     {
         return Encomenda::with('cliente.user')
-            ->withCount([
-                'itens',
-                'itens as camisa_count' => fn ($query) => $query->where('tipo', 'camisa'),
-                'itens as casaco_count' => fn ($query) => $query->where('tipo', 'casaco'),
-                'itens as colete_count' => fn ($query) => $query->where('tipo', 'colete'),
-                'itens as calca_count' => fn ($query) => $query->where('tipo', 'calca'),
-                'itens as fato_count' => fn ($query) => $query->where('tipo', 'fato'),
-            ])
+            ->withCount(['itens', 'itens as camisa_count' => fn($query) => $query->where('tipo', 'camisa'), 'itens as casaco_count' => fn($query) => $query->where('tipo', 'casaco'), 'itens as colete_count' => fn($query) => $query->where('tipo', 'colete'), 'itens as calca_count' => fn($query) => $query->where('tipo', 'calca'), 'itens as fato_count' => fn($query) => $query->where('tipo', 'fato')])
             ->paginate($perPage);
     }
 
@@ -38,11 +31,21 @@ class EncomendaService
      */
     public function getAllAsDTO(int $perPage = 15): array
     {
-        $encomendas = Encomenda::with(['cliente.user', 'itens.medida'])->paginate($perPage);
+        $encomendas = Encomenda::with(['cliente.user', 'itens.medida'])
+            ->withCount(['itens', 'itens as camisa_count' => fn($query) => $query->where('tipo', 'camisa'), 
+            'itens as casaco_count' => fn($query) => $query->where('tipo', 'casaco'), 
+            'itens as colete_count' => fn($query) => $query->where('tipo', 'colete'), 
+            'itens as calca_count' => fn($query) => $query->where('tipo', 'calca'), 
+            'itens as sapato_count' => fn($query) => $query->where('tipo', 'sapato'), 
+            'itens as fato_count' => fn($query) => $query->where('tipo', 'fato')])
+            ->paginate($perPage);
 
-        $items = $encomendas->getCollection()->map(function ($encomenda) {
-            return EncomendaDTO::fromModel($encomenda)->toArray();
-        })->toArray();
+        $items = $encomendas
+            ->getCollection()
+            ->map(function ($encomenda) {
+                return EncomendaDTO::fromModel($encomenda)->toArray();
+            })
+            ->toArray();
 
         return [
             'current_page' => $encomendas->currentPage(),
@@ -66,7 +69,14 @@ class EncomendaService
      */
     public function getById(int $id): ?Encomenda
     {
-        return Encomenda::with(['cliente', 'itens.medida'])->find($id);
+        return Encomenda::with(['cliente', 'itens.medida'])
+        ->withCount(['itens', 'itens as camisa_count' => fn($query) => $query->where('tipo', 'camisa'), 
+            'itens as casaco_count' => fn($query) => $query->where('tipo', 'casaco'), 
+            'itens as colete_count' => fn($query) => $query->where('tipo', 'colete'), 
+            'itens as calca_count' => fn($query) => $query->where('tipo', 'calca'), 
+            'itens as sapato_count' => fn($query) => $query->where('tipo', 'sapato'), 
+            'itens as fato_count' => fn($query) => $query->where('tipo', 'fato')])
+        ->find($id);
     }
 
     /**
@@ -74,7 +84,14 @@ class EncomendaService
      */
     public function getByIdAsDTO(int $id): ?EncomendaDTO
     {
-        $encomenda = Encomenda::with(['cliente.user', 'itens.medida'])->find($id);
+        $encomenda = Encomenda::with(['cliente.user', 'itens.medida'])
+        ->withCount(['itens', 'itens as camisa_count' => fn($query) => $query->where('tipo', 'camisa'), 
+            'itens as casaco_count' => fn($query) => $query->where('tipo', 'casaco'), 
+            'itens as colete_count' => fn($query) => $query->where('tipo', 'colete'), 
+            'itens as calca_count' => fn($query) => $query->where('tipo', 'calca'), 
+            'itens as sapato_count' => fn($query) => $query->where('tipo', 'sapato'), 
+            'itens as fato_count' => fn($query) => $query->where('tipo', 'fato')])
+        ->find($id);
 
         if (!$encomenda) {
             return null;

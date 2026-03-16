@@ -63,7 +63,53 @@ class ClienteService
      */
     public function getById(int $id): ?Cliente
     {
-        return Cliente::with(['user', 'encomendas', 'medidas'])->find($id);
+        return Cliente::select('clientes.*')
+            ->withCount('encomendas')
+            ->with(['user', 'encomendas.itens', 'medidas'])
+            ->selectSub(function ($query) {
+                $query->selectRaw('COUNT(*)')
+                    ->from('item_encomendas')
+                    ->join('encomendas', 'item_encomendas.encomenda_id', '=', 'encomendas.id')
+                    ->whereColumn('encomendas.cliente_id', 'clientes.id')
+                    ->where('item_encomendas.tipo', 'camisa');
+            }, 'camisa_count')
+            
+            ->selectSub(function ($query) {
+                $query->selectRaw('COUNT(*)')
+                    ->from('item_encomendas')
+                    ->join('encomendas', 'item_encomendas.encomenda_id', '=', 'encomendas.id')
+                    ->whereColumn('encomendas.cliente_id', 'clientes.id')
+                    ->where('item_encomendas.tipo', 'casaco');
+            }, 'casaco_count')
+            ->selectSub(function ($query) {
+                $query->selectRaw('COUNT(*)')
+                    ->from('item_encomendas')
+                    ->join('encomendas', 'item_encomendas.encomenda_id', '=', 'encomendas.id')
+                    ->whereColumn('encomendas.cliente_id', 'clientes.id')
+                    ->where('item_encomendas.tipo', 'colete');
+            }, 'colete_count')
+            ->selectSub(function ($query) {
+                $query->selectRaw('COUNT(*)')
+                    ->from('item_encomendas')
+                    ->join('encomendas', 'item_encomendas.encomenda_id', '=', 'encomendas.id')
+                    ->whereColumn('encomendas.cliente_id', 'clientes.id')
+                    ->where('item_encomendas.tipo', 'calca');
+            }, 'calca_count')
+            ->selectSub(function ($query) {
+                $query->selectRaw('COUNT(*)')
+                    ->from('item_encomendas')
+                    ->join('encomendas', 'item_encomendas.encomenda_id', '=', 'encomendas.id')
+                    ->whereColumn('encomendas.cliente_id', 'clientes.id')
+                    ->where('item_encomendas.tipo', 'sapato');
+            }, 'sapato_count')
+            ->selectSub(function ($query) {
+                $query->selectRaw('COUNT(*)')
+                    ->from('item_encomendas')
+                    ->join('encomendas', 'item_encomendas.encomenda_id', '=', 'encomendas.id')
+                    ->whereColumn('encomendas.cliente_id', 'clientes.id')
+                    ->where('item_encomendas.tipo', 'fato');
+            }, 'fato_count')
+            ->find($id);
     }
 
     /**

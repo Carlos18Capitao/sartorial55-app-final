@@ -97,7 +97,7 @@ import { Link } from '@inertiajs/vue3';
                                         <!-- item -->
                                         <a href="javascript:void(0);" class="dropdown-item notify-item py-2">
                                             <div class="d-flex">
-                                                <img src="assets/images/users/avatar-2.jpg"
+                                                <img src="/assets/images/users/avatar-2.jpg"
                                                     class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                                 <div class="flex-grow-1">
                                                     <h6 class="m-0">Angela Bernier</h6>
@@ -108,7 +108,7 @@ import { Link } from '@inertiajs/vue3';
                                         <!-- item -->
                                         <a href="javascript:void(0);" class="dropdown-item notify-item py-2">
                                             <div class="d-flex">
-                                                <img src="assets/images/users/avatar-3.jpg"
+                                                <img src="/assets/images/users/avatar-3.jpg"
                                                     class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                                 <div class="flex-grow-1">
                                                     <h6 class="m-0">David Grasso</h6>
@@ -119,7 +119,7 @@ import { Link } from '@inertiajs/vue3';
                                         <!-- item -->
                                         <a href="javascript:void(0);" class="dropdown-item notify-item py-2">
                                             <div class="d-flex">
-                                                <img src="assets/images/users/avatar-5.jpg"
+                                                <img src="/assets/images/users/avatar-5.jpg"
                                                     class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                                 <div class="flex-grow-1">
                                                     <h6 class="m-0">Mike Bunch</h6>
@@ -266,7 +266,7 @@ import { Link } from '@inertiajs/vue3';
                                             <div
                                                 class="text-reset notification-item d-block dropdown-item position-relative">
                                                 <div class="d-flex">
-                                                    <img src="assets/images/users/avatar-2.jpg"
+                                                    <img src="/assets/images/users/avatar-2.jpg"
                                                         class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                                     <div class="flex-grow-1">
                                                         <a href="#!" class="stretched-link">
@@ -328,7 +328,7 @@ import { Link } from '@inertiajs/vue3';
                                             <div
                                                 class="text-reset notification-item d-block dropdown-item position-relative">
                                                 <div class="d-flex">
-                                                    <img src="assets/images/users/avatar-8.jpg"
+                                                    <img src="/assets/images/users/avatar-8.jpg"
                                                         class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                                     <div class="flex-grow-1">
                                                         <a href="#!" class="stretched-link">
@@ -369,7 +369,7 @@ import { Link } from '@inertiajs/vue3';
                                         <div data-simplebar style="max-height: 300px;" class="pe-2">
                                             <div class="text-reset notification-item d-block dropdown-item">
                                                 <div class="d-flex">
-                                                    <img src="assets/images/users/avatar-3.jpg"
+                                                    <img src="/assets/images/users/avatar-3.jpg"
                                                         class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                                     <div class="flex-grow-1">
                                                         <a href="#!" class="stretched-link">
@@ -397,7 +397,7 @@ import { Link } from '@inertiajs/vue3';
 
                                             <div class="text-reset notification-item d-block dropdown-item">
                                                 <div class="d-flex">
-                                                    <img src="assets/images/users/avatar-2.jpg"
+                                                    <img src="/assets/images/users/avatar-2.jpg"
                                                         class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                                     <div class="flex-grow-1">
                                                         <a href="#!" class="stretched-link">
@@ -426,7 +426,7 @@ import { Link } from '@inertiajs/vue3';
 
                                             <div class="text-reset notification-item d-block dropdown-item">
                                                 <div class="d-flex">
-                                                    <img src="assets/images/users/avatar-6.jpg"
+                                                    <img src="/assets/images/users/avatar-6.jpg"
                                                         class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                                     <div class="flex-grow-1">
                                                         <a href="#!" class="stretched-link">
@@ -455,7 +455,7 @@ import { Link } from '@inertiajs/vue3';
 
                                             <div class="text-reset notification-item d-block dropdown-item">
                                                 <div class="d-flex">
-                                                    <img src="assets/images/users/avatar-8.jpg"
+                                                    <img src="/assets/images/users/avatar-8.jpg"
                                                         class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                                     <div class="flex-grow-1">
                                                         <a href="#!" class="stretched-link">
@@ -509,7 +509,7 @@ import { Link } from '@inertiajs/vue3';
                                 aria-haspopup="true" aria-expanded="false">
                                 <span class="d-flex align-items-center">
                                     <img class="rounded-circle header-profile-user"
-                                        src="assets/images/users/avatar-1.jpg" alt="Header Avatar">
+                                        src="/assets/images/users/avatar-1.jpg" alt="Header Avatar">
                                     <span class="text-start ms-xl-2">
                                         <span class="d-none d-xl-inline-block ms-1 fw-semibold user-name-text">Candido
                                             Cornelio</span>
@@ -563,7 +563,7 @@ import { Link } from '@inertiajs/vue3';
                     </div>
                     <div class="modal-body">
                         <div class="mt-2 text-center">
-                            <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop"
+                            <lord-icon src="https:/cdn.lordicon.com/gsqxdxog.json" trigger="loop"
                                 colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
                             <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
                                 <h4>Are you sure ?</h4>
@@ -1400,7 +1400,7 @@ import { Link } from '@inertiajs/vue3';
                                 <input class="form-check-input" type="radio" name="data-sidebar-image"
                                     id="sidebarimg-01" value="img-1">
                                 <label class="form-check-label p-0 avatar-sm h-auto" for="sidebarimg-01">
-                                    <img src="assets/images/sidebar/img-1.jpg" alt=""
+                                    <img src="/assets/images/sidebar/img-1.jpg" alt=""
                                         class="avatar-md w-auto object-fit-cover">
                                 </label>
                             </div>
@@ -1409,7 +1409,7 @@ import { Link } from '@inertiajs/vue3';
                                 <input class="form-check-input" type="radio" name="data-sidebar-image"
                                     id="sidebarimg-02" value="img-2">
                                 <label class="form-check-label p-0 avatar-sm h-auto" for="sidebarimg-02">
-                                    <img src="assets/images/sidebar/img-2.jpg" alt=""
+                                    <img src="/assets/images/sidebar/img-2.jpg" alt=""
                                         class="avatar-md w-auto object-fit-cover">
                                 </label>
                             </div>
@@ -1417,7 +1417,7 @@ import { Link } from '@inertiajs/vue3';
                                 <input class="form-check-input" type="radio" name="data-sidebar-image"
                                     id="sidebarimg-03" value="img-3">
                                 <label class="form-check-label p-0 avatar-sm h-auto" for="sidebarimg-03">
-                                    <img src="assets/images/sidebar/img-3.jpg" alt=""
+                                    <img src="/assets/images/sidebar/img-3.jpg" alt=""
                                         class="avatar-md w-auto object-fit-cover">
                                 </label>
                             </div>
@@ -1425,7 +1425,7 @@ import { Link } from '@inertiajs/vue3';
                                 <input class="form-check-input" type="radio" name="data-sidebar-image"
                                     id="sidebarimg-04" value="img-4">
                                 <label class="form-check-label p-0 avatar-sm h-auto" for="sidebarimg-04">
-                                    <img src="assets/images/sidebar/img-4.jpg" alt=""
+                                    <img src="/assets/images/sidebar/img-4.jpg" alt=""
                                         class="avatar-md w-auto object-fit-cover">
                                 </label>
                             </div>
@@ -1511,7 +1511,7 @@ import { Link } from '@inertiajs/vue3';
                     <button type="button" class="btn btn-light w-100" id="reset-layout">Reset</button>
                 </div>
                 <div class="col-6">
-                    <a href="https://1.envato.market/velzon-admin" target="_blank" class="btn btn-primary w-100">Buy
+                    <a href="https:/1.envato.market/velzon-admin" target="_blank" class="btn btn-primary w-100">Buy
                         Now</a>
                 </div>
             </div>

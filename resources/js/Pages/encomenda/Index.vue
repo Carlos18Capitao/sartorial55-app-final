@@ -33,9 +33,9 @@
                                         <td>
                                             <img src="assets/images/users/avatar-3.jpg"
                                                 class="avatar-xxs rounded-circle me-1" alt="">
-                                            <a href="javascript: void(0);" class="text-reset">{{
+                                            <Link :href="route('clientes.show', encomenda.cliente.id)" class="text-reset">{{
                                                 encomenda.cliente.user.name
-                                            }}</a>
+                                            }}</Link>
                                         </td>
                                         <td>
                                             <div class="d-flex align-items-center">
@@ -60,6 +60,14 @@
                                                     <span
                                                         class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger">{{
                                                         encomenda.calca_count }}</span>
+                                                </a>
+                                                <a v-if="encomenda.colete_count" href="javascript: void(0);"
+                                                    class="avatar-group-item">
+                                                    <img src="storage/icons/waistcoat.png" alt="Colete"
+                                                        class="avatar-xs">
+                                                    <span
+                                                        class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger">{{
+                                                        encomenda.colete_count }}</span>
                                                 </a>
                                                 <a v-if="encomenda.camisa_count" href="javascript: void(0);"
                                                     class="avatar-group-item">
