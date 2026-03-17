@@ -24,4 +24,11 @@ Route::resource('clientes', ClienteController::class);
 // Rotas de encomendas
 Route::resource('encomendas', EncomendaController::class);
 
+
+    // Encomenda item routes
+    Route::get('/encomendas/{id}/itens', [EncomendaController::class, 'itens'])->name('encomendas.itens');
+    Route::post('/encomendas/{id}/itens', [EncomendaController::class, 'addItem'])->name('encomendas.addItem');
+    Route::put('/encomendas/{encomendaId}/itens/{itemId}', [EncomendaController::class, 'updateItem'])->name('encomendas.updateItem');
+    Route::delete('/encomendas/{encomendaId}/itens/{itemId}', [EncomendaController::class, 'removeItem'])->name('encomendas.removeItem');
+
 require __DIR__ . '/auth.php';

@@ -263,13 +263,13 @@
                                                                 <div class="flex-grow-1 text-muted overflow-hidden">
                                                                     <h5 class="fs-14 text-truncate"><a href="#"
                                                                             class="text-body">Enc. {{
-                                                                            formatDate(encomenda.created_at,
-                                                                            'DD/MM/YYYY') }}</a>
+                                                                                formatDate(encomenda.created_at,
+                                                                                    'DD/MM/YYYY') }}</a>
                                                                     </h5>
                                                                     <p class="text-muted text-truncate mb-0">
                                                                         Actuali.: <span class="fw-semibold text-body">{{
                                                                             formatDate(encomenda.updated_at,
-                                                                            'DD/MM/YYYY') }}</span></p>
+                                                                                'DD/MM/YYYY') }}</span></p>
                                                                 </div>
                                                                 <div class="flex-shrink-0 ms-2">
                                                                     <div
@@ -432,8 +432,8 @@
                                                             </thead>
                                                             <tbody class="list form-check-all" id="invoice-list-data">
                                                                 <template v-for="(iten, i) in cliente.encomendas">
-                                                                    <tr v-for="(item, inde) in iten.itens" :key="inde">
-
+                                                                    <tr v-for="(item, inde) in iten.itens" :key="inde"
+                                                                        :id="`item-${item.id}`">
                                                                         <td class="customer_name">
                                                                             <div class="d-flex align-items-center">
                                                                                 <img v-if="item.tipo === 'camisa'"
@@ -463,7 +463,7 @@
                                                                         <td class="date">
                                                                             <span
                                                                                 class="badge bg-success-subtle text-success">{{
-                                                                                item.estado }}</span>
+                                                                                    item.estado }}</span>
                                                                         </td>
                                                                         <td class="invoice_amount">
                                                                             26 Apr 2026 <small class="text-muted">9:58
@@ -485,12 +485,15 @@
                                                                                 </button>
                                                                                 <ul
                                                                                     class="dropdown-menu dropdown-menu-end">
-                                                                                    <li><button class="dropdown-item"
-                                                                                            href="javascript:void(0);"
-                                                                                            onclick="ViewInvoice(this);"
-                                                                                            data-id="25000351"><i
-                                                                                                class="ri-eye-fill align-bottom me-2 text-muted"></i>
-                                                                                            View</button></li>
+                                                                                    <li>
+                                                                                        <Link type="button" preserve
+                                                                                            class="dropdown-item"
+                                                                                            @click.prevent="deleteItem(item.id);">
+                                                                                            <i
+                                                                                                class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
+                                                                                            Apagar
+                                                                                        </Link>
+                                                                                    </li>
                                                                                     <li><button class="dropdown-item"
                                                                                             href="javascript:void(0);"
                                                                                             onclick="EditInvoice(this);"
@@ -502,15 +505,7 @@
                                                                                                 class="ri-download-2-line align-bottom me-2 text-muted"></i>
                                                                                             Download</a></li>
                                                                                     <li class="dropdown-divider"></li>
-                                                                                    <li>
-                                                                                        <a class="dropdown-item remove-item-btn"
-                                                                                            data-bs-toggle="modal"
-                                                                                            href="#deleteOrder">
-                                                                                            <i
-                                                                                                class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
-                                                                                            Delete
-                                                                                        </a>
-                                                                                    </li>
+
                                                                                 </ul>
                                                                             </div>
                                                                         </td>
@@ -554,6 +549,8 @@ const props = defineProps({
     }
 })
 
+const form = useForm({})
+
 const cliente = ref(props.cliente)
 
 
@@ -570,6 +567,45 @@ const formatDate = (dateString, format) => {
     }
 
     return new Intl.DateTimeFormat('pt-BR', options).format(date)
+}
+
+const deleteItem = (itemId) => {
+    // console.log(itemId)
+    Swal.fire({
+        title: 'Tem certeza?',
+        text: 'Você não poderá reverter isso!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sim, excluir!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (!result.isConfirmed) return
+        // Call the delete API endpoint
+        form.delete(route('encomendas.removeItem', [cliente.value.id, itemId]), {
+            preserveScroll: true,
+            onSuccess: (response => {
+                // remover reativamente do objeto cliente para evitar reload da página
+                cliente.value.encomendas.forEach(en => {
+                    var idx = en.itens.findIndex(i => i.id === itemId)
+                    if (idx !== -1) en.itens.splice(idx, 1)
+                })
+                Swal.fire(
+                    'Excluído!',
+                    'O item foi excluído com sucesso.',
+                    'success'
+                )
+                // Optionally, refresh the item list or remove the item from the UI
+            })
+        })
+            .catch(error => {
+                Swal.fire(
+                    'Erro!',
+                    'Ocorreu um erro ao excluir o item.',
+                    'error'
+                )
+            })
+
+    })
 }
 
 </script>

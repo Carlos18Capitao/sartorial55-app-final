@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\DTOs\Requests\AddItemEncomendaDTO;
+use App\DTOs\Requests\UpdateItemEncomendaDTO;
+use App\Models\Encomenda;
+use App\Models\ItemEncomenda;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\RedirectResponse;
@@ -69,5 +74,72 @@ class EncomendaController extends Controller
     {
         $this->encomendaService->deleteEncomenda($id);
         return redirect()->route('encomendas.index')->with('success', 'Encomenda eliminada com sucesso!');
+    }
+
+     /**
+     * Add an item to the encomenda.
+     */
+    public function addItem(Request $request, int $id)
+    {
+        $validated = $request->validate([
+            'tipo' => 'required|in:camisa,fato,casaco,calca,colete',
+            'cliente_medidas_id' => 'nullable|exists:cliente_medidas,id',
+            'estado' => 'nullable|string',
+            'observacoes' => 'nullable|string',
+            'data_previsao' => 'nullable|date',
+        ]);
+
+        $encomenda = Encomenda::findOrFail($id);
+
+        $dto = AddItemEncomendaDTO::fromRequest($validated);
+        $itemData = $dto->toModelArray($encomenda->id);
+
+        $item = ItemEncomenda::create($itemData);
+
+        // If using default measurements, create the medida
+        if (!empty($validated['cliente_medidas_id'])) {
+            $item->createMedidaFromDefault();
+        }
+
+        return redirect()->route('encomendas.show', $encomenda->id)->with('success', 'Item adicionado à encomenda com sucesso!');
+    }
+
+    /**
+     * Update an item in the encomenda.
+     */
+    public function updateItem(Request $request, int $encomendaId, int $itemId)
+    {
+        $validated = $request->validate([
+            'estado' => 'nullable|string',
+            'observacoes' => 'nullable|string',
+            'data_envio' => 'nullable|date',
+            'data_previsao' => 'nullable|date',
+        ]);
+
+        $dto = UpdateItemEncomendaDTO::fromRequest($validated);
+        $item = ItemEncomenda::where('encomenda_id', $encomendaId)->findOrFail($itemId);
+        $item->update($dto->toModelArray());
+
+        return redirect()->route('encomendas.show', $encomendaId)->with('success', 'Item atualizado com sucesso!');
+    }
+
+    /**
+     * Remove an item from the encomenda.
+     */
+    public function removeItem(int $encomendaId, int $itemId)
+    {
+        $item = ItemEncomenda::where('encomenda_id', $encomendaId)->findOrFail($itemId);
+        $item->delete();
+        return redirect()->route('encomendas.show', $encomendaId)->with('success', 'Item removido da encomenda com sucesso!');
+    }
+
+    /**
+     * Get all items of an encomenda.
+     */
+    public function itens(int $id)
+    {
+        $encomenda = Encomenda::with(['itens.medida'])->findOrFail($id);
+
+        return redirect()->route('encomendas.show', $id)->with('success', 'Itens da encomenda carregados com sucesso!');
     }
 }

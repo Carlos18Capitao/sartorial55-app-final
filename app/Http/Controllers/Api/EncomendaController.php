@@ -189,6 +189,7 @@ class EncomendaController extends Controller
     public function removeItem(int $encomendaId, int $itemId): JsonResponse
     {
         $item = ItemEncomenda::where('encomenda_id', $encomendaId)->findOrFail($itemId);
+        dd($item);
         $item->delete();
 
         return response()->json([
