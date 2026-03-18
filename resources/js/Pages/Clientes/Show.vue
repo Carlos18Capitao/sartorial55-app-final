@@ -61,7 +61,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item" role="presentation">
-                                        <a class="nav-link fs-14" data-bs-toggle="tab" href="#items" role="tab"
+                                        <a ref="itemsTab" class="nav-link fs-14" data-bs-toggle="tab" href="#items" role="tab"
                                             aria-selected="false" tabindex="-1">
                                             <i class="ri-folder-4-line d-inline-block d-md-none"></i> <span
                                                 class="d-none d-md-inline-block">Items</span>
@@ -488,7 +488,7 @@
                                                                                     <li>
                                                                                         <Link type="button" preserve
                                                                                             class="dropdown-item"
-                                                                                            @click.prevent="deleteItem(item.id);">
+                                                                                            @click.prevent="deleteItem(iten.id, item.id);">
                                                                                             <i
                                                                                                 class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
                                                                                             Apagar
@@ -538,7 +538,7 @@
 </template>
 <script setup>
 import DashboardApp from '../Dashboard-app.vue'
-import { ref, defineProps } from 'vue'
+import { ref, defineProps, nextTick } from 'vue'
 import { Link, useForm } from '@inertiajs/vue3'
 import Swal from 'sweetalert2'
 
@@ -552,6 +552,7 @@ const props = defineProps({
 const form = useForm({})
 
 const cliente = ref(props.cliente)
+const itemsTab = ref(null)
 
 
 const formatDate = (dateString, format) => {
@@ -569,8 +570,7 @@ const formatDate = (dateString, format) => {
     return new Intl.DateTimeFormat('pt-BR', options).format(date)
 }
 
-const deleteItem = (itemId) => {
-    // console.log(itemId)
+const deleteItem = (encomendaId, itemId) => {
     Swal.fire({
         title: 'Tem certeza?',
         text: 'Você não poderá reverter isso!',
@@ -580,32 +580,32 @@ const deleteItem = (itemId) => {
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (!result.isConfirmed) return
-        // Call the delete API endpoint
-        form.delete(route('encomendas.removeItem', [cliente.value.id, itemId]), {
-            preserveScroll: true,
-            onSuccess: (response => {
-                // remover reativamente do objeto cliente para evitar reload da página
-                cliente.value.encomendas.forEach(en => {
-                    var idx = en.itens.findIndex(i => i.id === itemId)
-                    if (idx !== -1) en.itens.splice(idx, 1)
-                })
-                Swal.fire(
-                    'Excluído!',
-                    'O item foi excluído com sucesso.',
-                    'success'
-                )
-                // Optionally, refresh the item list or remove the item from the UI
-            })
-        })
-            .catch(error => {
-                Swal.fire(
-                    'Erro!',
-                    'Ocorreu um erro ao excluir o item.',
-                    'error'
-                )
-            })
 
-    })
+        form.delete(route('encomendas.removeItem', [encomendaId, itemId]), {
+            preserveScroll: true,
+            onSuccess: () => {
+                // Remove reactively from the correct encomenda
+                const encomenda = cliente.value.encomendas.find(en => en.id === encomendaId);
+                if (encomenda) {
+                    const idx = encomenda.itens.findIndex(i => i.id === itemId);
+                    if (idx !== -1) {
+                        encomenda.itens.splice(idx, 1);
+                    }
+                }
+
+                // Activate the items tab to make it visible
+                if (itemsTab.value) {
+                    itemsTab.value.click();
+                    itemsTab.value.setAttribute('aria-selected', 'true');
+                }
+
+                Swal.fire('Excluído!', 'O item foi excluído com sucesso.', 'success');
+            },
+            onError: () => {
+                Swal.fire('Erro!', 'Ocorreu um erro ao excluir o item.', 'error');
+            }
+        });
+    });
 }
 
 </script>

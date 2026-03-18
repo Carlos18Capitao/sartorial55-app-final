@@ -126,11 +126,18 @@ class EncomendaController extends Controller
     /**
      * Remove an item from the encomenda.
      */
-    public function removeItem(int $encomendaId, int $itemId)
+    public function removeItem(Request $request, int $encomendaId, int $itemId)
     {
         $item = ItemEncomenda::where('encomenda_id', $encomendaId)->findOrFail($itemId);
         $item->delete();
-        return redirect()->route('encomendas.show', $encomendaId)->with('success', 'Item removido da encomenda com sucesso!');
+
+        $message = 'Item removido da encomenda com sucesso!';
+
+        if ($request->wantsJson() || $request->header('X-Inertia')) {
+            return back()->with('success', $message);
+        }
+
+        return response()->json(['success' => true, 'message' => $message]);
     }
 
     /**
