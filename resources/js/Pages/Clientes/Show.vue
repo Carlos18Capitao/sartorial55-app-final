@@ -1,6 +1,6 @@
 <template>
     <DashboardApp>
-        <div class="page-content">
+        <div class="page-content" style="padding-top:0;">
             <div class="container-fluid">
                 <div class="profile-foreground position-relative mx-n4 mt-n4">
                     <div class="profile-wid-bg">
