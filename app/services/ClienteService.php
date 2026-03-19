@@ -21,7 +21,7 @@ class ClienteService
      */
     public function getAll(int $perPage = 15): LengthAwarePaginator
     {
-        return Cliente::with(['user', 'encomendas', 'medidas'])->paginate($perPage);
+        return Cliente::with(['user', 'encomendas.itens', 'medidas'])->paginate($perPage);
     }
 
     /**
@@ -73,7 +73,7 @@ class ClienteService
                     ->whereColumn('encomendas.cliente_id', 'clientes.id')
                     ->where('item_encomendas.tipo', 'camisa');
             }, 'camisa_count')
-            
+
             ->selectSub(function ($query) {
                 $query->selectRaw('COUNT(*)')
                     ->from('item_encomendas')
