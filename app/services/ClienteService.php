@@ -21,7 +21,7 @@ class ClienteService
      */
     public function getAll(int $perPage = 15): LengthAwarePaginator
     {
-        return Cliente::with(['user', 'encomendas.itens', 'medidas'])->paginate($perPage);
+        return Cliente::with(['user', 'encomendas.itens', 'medidas'])->withCount('encomendas')->paginate($perPage);
     }
 
     /**

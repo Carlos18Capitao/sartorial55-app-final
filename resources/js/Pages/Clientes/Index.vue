@@ -5,9 +5,9 @@
                 <!-- Conteúdo da coluna -->
                 <div class="card card-height-100">
                     <div class="card-header d-flex align-items-center">
-                        <h4 class="card-title flex-grow-1 mb-0">Lista de Encomendas</h4>
+                        <h4 class="card-title flex-grow-1 mb-0">Lista de Clientes</h4>
                         <div class="flex-shrink-0">
-                            <Link href="/encomendas/create" class="btn btn-soft-primary btn-sm">Nova Encomenda</Link>
+                            <Link href="/clientes/create" class="btn btn-soft-primary btn-sm">Novo Cliente</Link>
                         </div>
                     </div><!-- end cardheader -->
                     <div class="card-body">
@@ -16,6 +16,7 @@
                                 <thead class="bg-light text-muted">
                                     <tr>
                                         <th scope="col">Nome</th>
+                                        <th scope="col">Encomendas Feitas</th>
                                         <th scope="col" style="width: 10%;">Opções</th>
                                     </tr><!-- end tr -->
                                 </thead><!-- thead -->
@@ -29,6 +30,10 @@
                                             <Link :href="route('clientes.show', cliente.id)" class="text-reset">{{
                                                 cliente.user.name
                                             }}</Link>
+                                        </td>
+
+                                        <td>
+                                            {{ cliente.encomendas_count }}
                                         </td>
 
                                         <td>
