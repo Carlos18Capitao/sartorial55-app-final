@@ -8,21 +8,16 @@ use Inertia\Inertia;
 
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\EncomendaController;
-
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-})->name('home');
+use App\Http\Controllers\DashboardController;
 
 // Rotas de clientes
 Route::resource('clientes', ClienteController::class);
 
 // Rotas de encomendas
 Route::resource('encomendas', EncomendaController::class);
+
+// Dashboard
+Route::get('/', [DashboardController::class, 'index'])->name('home');
 
 
     // Encomenda item routes
