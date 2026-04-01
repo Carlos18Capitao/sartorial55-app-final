@@ -23,7 +23,7 @@ class EncomendaController extends Controller
     public function index()
     {
         return Inertia::render('encomenda/Index', [
-            'encomendas' => $this->encomendaService->getAll()
+            'encomendas' => $this->encomendaService->getAllAsDTO()
         ]);
     }
 
@@ -91,7 +91,7 @@ class EncomendaController extends Controller
 
         $encomenda = Encomenda::findOrFail($id);
 
-        $dto = AddItemEncomendaDTO::fromRequest($validated);
+        $dto = \App\Application\DTOs\Requests\AddItemEncomendaDTO::fromRequest($validated);
         $itemData = $dto->toModelArray($encomenda->id);
 
         $item = ItemEncomenda::create($itemData);
