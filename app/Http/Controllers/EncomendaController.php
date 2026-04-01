@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\DTOs\Requests\AddItemEncomendaDTO;
-use App\DTOs\Requests\UpdateItemEncomendaDTO;
+use App\Application\Requests\AddItemEncomendaDTO;
+use App\Application\DTOs\Requests\UpdateItemEncomendaDTO;
 use App\Models\Encomenda;
 use App\Models\ItemEncomenda;
 use Illuminate\Http\JsonResponse;

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\DTOs\Requests\CreateClienteDTO;
-use App\DTOs\Requests\UpdateClienteDTO;
-use App\DTOs\Requests\UpdateClienteMedidasDTO;
-use App\DTOs\Responses\ClienteDTO;
+use App\Application\DTOs\Requests\CreateClienteDTO;
+use App\Application\DTOs\Requests\UpdateClienteDTO;
+use App\Application\DTOs\Requests\UpdateClienteMedidasDTO;
+use App\Application\DTOs\Responses\ClienteDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreClienteRequest;
 use App\Http\Requests\UpdateClienteRequest;

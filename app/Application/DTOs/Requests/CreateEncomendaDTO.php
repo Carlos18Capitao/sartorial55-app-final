@@ -1,15 +1,16 @@
 <?php
 
-namespace App\DTOs\Requests;
+namespace App\Application\DTOs\Requests;
 
-use App\DTOs\AbstractDTO;
+use App\Application\DTOs\AbstractDTO;
 
 /**
- * DTO for updating an existing Encomenda.
+ * DTO for creating a new Encomenda.
  */
-readonly class UpdateEncomendaDTO extends AbstractDTO
+readonly class CreateEncomendaDTO extends AbstractDTO
 {
     public function __construct(
+        public ?int $clienteId = null,
         public ?string $dataEncomenda = null,
         public ?string $estado = null,
         public ?float $total = null,
@@ -25,6 +26,7 @@ readonly class UpdateEncomendaDTO extends AbstractDTO
     public static function fromRequest(array $data): static
     {
         return new static(
+            clienteId: $data['cliente_id'] ?? null,
             dataEncomenda: $data['data_encomenda'] ?? null,
             estado: $data['estado'] ?? null,
             total: isset($data['total']) ? (float) $data['total'] : null,
@@ -33,15 +35,16 @@ readonly class UpdateEncomendaDTO extends AbstractDTO
     }
 
     /**
-     * Convert to array for model update.
+     * Convert to array for model creation.
      *
      * @return array
      */
     public function toModelArray(): array
     {
         return array_filter([
+            'cliente_id' => $this->clienteId,
             'data_encomenda' => $this->dataEncomenda,
-            'estado' => $this->estado,
+            'estado' => $this->estado ?? 'pendente',
             'total' => $this->total,
             'observacoes' => $this->observacoes,
         ], fn($value) => $value !== null);

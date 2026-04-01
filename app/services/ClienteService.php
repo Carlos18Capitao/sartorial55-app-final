@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
-use App\DTOs\Requests\CreateClienteDTO;
-use App\DTOs\Requests\UpdateClienteDTO;
-use App\DTOs\Requests\UpdateClienteMedidasDTO;
-use App\DTOs\Responses\ClienteDTO;
+use App\Application\DTOs\Requests\CreateClienteDTO;
+use App\Application\DTOs\Requests\UpdateClienteDTO;
+use App\Application\DTOs\Requests\UpdateClienteMedidasDTO;
+use App\Application\DTOs\Responses\ClienteDTO;
 use App\Models\Cliente;
 use App\Models\ClienteMedidas;
 use App\Models\User;

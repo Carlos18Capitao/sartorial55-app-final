@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Models\Cliente;
 use App\Models\Encomenda;
 use App\Models\ItemEncomenda;
-use Illuminate\Support\Facades\DB;
 
 class StatisticsService
 {

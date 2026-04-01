@@ -1,8 +1,8 @@
 <?php
 
-namespace App\DTOs\Responses;
+namespace App\Application\DTOs\Responses;
 
-use App\DTOs\AbstractDTO;
+use App\Application\DTOs\AbstractDTO;
 use App\Models\User;
 
 /**

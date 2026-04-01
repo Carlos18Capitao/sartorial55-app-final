@@ -1,8 +1,8 @@
 <?php
 
-namespace App\DTOs\Responses;
+namespace App\Application\DTOs\Responses;
 
-use App\DTOs\AbstractDTO;
+use App\Application\DTOs\AbstractDTO;
 use App\Models\ItemEncomenda;
 
 /**
@@ -44,8 +44,8 @@ readonly class ItemEncomendaDTO extends AbstractDTO implements \JsonSerializable
             foto: $item->foto,
             estado: $item->estado,
             observacoes: $item->observacoes,
-            dataEnvio: $item->data_envio?->format('d-m-Y'),
-            dataPrevisao: $item->data_previsao?->format('d-m-Y'),
+            dataEnvio: $item->data_envio ? \Carbon\Carbon::parse($item->data_envio)->format('d-m-Y') : null,
+            dataPrevisao: $item->data_previsao ? \Carbon\Carbon::parse($item->data_previsao)->format('d-m-Y') : null,
             medida: $medidaDTO,
         );
     }

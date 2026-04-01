@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DTOs;
+namespace App\Application\DTOs;
 
 /**
  * Abstract base class for all DTOs.
@@ -8,6 +8,7 @@ namespace App\DTOs;
  */
 abstract readonly class AbstractDTO
 {
+
     /**
      * Create a DTO instance from an array of data.
      *
@@ -16,7 +17,16 @@ abstract readonly class AbstractDTO
      */
     public static function fromArray(array $data): static
     {
-        return new static(...$data);
+        $reflection = new \ReflectionClass(static::class);
+        $constructor = $reflection->getConstructor();
+
+        // If the class has no constructor or the constructor requires no parameters,
+        // instantiate without arguments; otherwise pass the array values as args.
+        if ($constructor === null || $constructor->getNumberOfParameters() === 0) {
+            return $reflection->newInstance();
+        }
+
+        return $reflection->newInstanceArgs(array_values($data));
     }
 
     /**

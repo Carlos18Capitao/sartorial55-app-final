@@ -1,8 +1,8 @@
 <?php
 
-namespace App\DTOs\Responses;
+namespace App\Application\DTOs\Responses;
 
-use App\DTOs\AbstractDTO;
+use App\Application\DTOs\AbstractDTO;
 use App\Models\Encomenda;
 
 /**
@@ -48,7 +48,9 @@ readonly class EncomendaDTO extends AbstractDTO implements \JsonSerializable
         return new static(
             id: $encomenda->id,
             clienteId: $encomenda->cliente_id,
-            dataEncomenda: $encomenda->data_encomenda?->format('d-m-Y'),
+            dataEncomenda: $encomenda->data_encomenda instanceof \DateTimeInterface
+                ? $encomenda->data_encomenda->format('d-m-Y')
+                : ($encomenda->data_encomenda ? \Carbon\Carbon::parse($encomenda->data_encomenda)->format('d-m-Y') : null),
             estado: $encomenda->estado,
             total: $encomenda->total,
             observacoes: $encomenda->observacoes,

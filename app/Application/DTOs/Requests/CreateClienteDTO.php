@@ -1,8 +1,8 @@
 <?php
 
-namespace App\DTOs\Requests;
+namespace App\Application\DTOs\Requests;
 
-use App\DTOs\AbstractDTO;
+use App\Application\DTOs\AbstractDTO;
 
 /**
  * DTO for creating a new Cliente.

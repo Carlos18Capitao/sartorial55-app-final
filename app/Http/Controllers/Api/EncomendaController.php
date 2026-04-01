@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\DTOs\Requests\CreateEncomendaDTO;
-use App\DTOs\Requests\UpdateEncomendaDTO;
-use App\DTOs\Requests\AddItemEncomendaDTO;
-use App\DTOs\Requests\UpdateItemEncomendaDTO;
-use App\DTOs\Responses\EncomendaDTO;
+use App\Application\DTOs\Requests\CreateEncomendaDTO;
+use App\Application\DTOs\Requests\UpdateEncomendaDTO;
+use App\Application\DTOs\Requests\AddItemEncomendaDTO;
+use App\Application\DTOs\Requests\UpdateItemEncomendaDTO;
+use App\Application\DTOs\Responses\EncomendaDTO;
 use App\Http\Controllers\Controller;
 use App\Models\Encomenda;
 use App\Models\ItemEncomenda;
