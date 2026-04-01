@@ -26,14 +26,16 @@ class EncomendaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResponse
+    public function index()
     {
-        $encomendas = $this->encomendaService->getAllAsDTO();
+        // usa o serviço de domínio para obter DTOs (mantém separação de responsabilidades)
+        $service = app(\App\Services\EncomendaService::class);
+        $data = $service->getAllAsDTO();
 
         return response()->json([
             'success' => true,
-            ...$encomendas,
-        ]);
+            'data' => $data,
+        ], 200);
     }
 
     /**
@@ -189,7 +191,7 @@ class EncomendaController extends Controller
     public function removeItem(int $encomendaId, int $itemId): JsonResponse
     {
         $item = ItemEncomenda::where('encomenda_id', $encomendaId)->findOrFail($itemId);
-        dd($item);
+
         $item->delete();
 
         return response()->json([

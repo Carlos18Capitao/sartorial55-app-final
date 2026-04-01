@@ -20,7 +20,14 @@ class EncomendaFactory extends Factory
         return [
             'cliente_id' => Cliente::factory(),
             'data_encomenda' => $this->faker->date(),
-            'estado' => $this->faker->randomElement(['pendente', 'em_processamento', 'enviada', 'entregue', 'cancelada']),
+            // Valores exactamente como definidos na migration
+            'estado' => $this->faker->randomElement([
+                'PENDENTE',
+                'EM_PROCESSAMENTO',
+                'ENVIADA',
+                'ENTREGUE',
+                'CANCELADA',
+            ]),
             'total' => $this->faker->randomFloat(2, 10, 1000),
             'observacoes' => $this->faker->optional()->sentence(),
         ];

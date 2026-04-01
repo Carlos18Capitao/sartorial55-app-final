@@ -33,7 +33,14 @@ class ItemEncomendaFactory extends Factory
             'encomenda_id' => Encomenda::factory(),
             'tipo' => $tipo,
             'foto' => $this->faker->optional(0.7)->imageUrl(400, 300, 'fashion'),
-            'estado' => $this->faker->randomElement(['pendente', 'em_producao', 'pronto', 'enviado', 'entregue']),
+            // Estados em UPPER_SNAKE
+            'estado' => $this->faker->randomElement([
+                'PENDENTE',
+                'EM_PRODUCAO',
+                'PRONTO',
+                'ENVIADO',
+                'ENTREGUE',
+            ]),
             'observacoes' => $this->faker->optional(0.5)->sentence(),
             'data_envio' => $this->faker->optional(0.3)->date(),
             'data_previsao' => $this->faker->optional(0.7)->dateTimeBetween('+1 week', '+2 months'),
@@ -114,7 +121,7 @@ class ItemEncomendaFactory extends Factory
     public function enviado(): static
     {
         return $this->state(fn (array $attributes) => [
-            'estado' => 'enviado',
+            'estado' => 'ENVIADO',
             'data_envio' => $this->faker->date(),
         ]);
     }
@@ -125,7 +132,7 @@ class ItemEncomendaFactory extends Factory
     public function entregue(): static
     {
         return $this->state(fn (array $attributes) => [
-            'estado' => 'entregue',
+            'estado' => 'ENTREGUE',
             'data_envio' => $this->faker->date(),
         ]);
     }

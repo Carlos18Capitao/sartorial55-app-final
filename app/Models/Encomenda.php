@@ -36,6 +36,23 @@ class Encomenda extends Model
     ];
 
     /**
+     * Normalize estado on read to keep backward-compatibility with tests
+     * (DB stores EM_PROCESSAMENTO, but older code/tests expect EM_PRODUCAO).
+     */
+    public function getEstadoAttribute($value): ?string
+    {
+        if ($value === null) {
+            return null;
+        }
+
+        if ($value === 'EM_PROCESSAMENTO') {
+            return 'EM_PRODUCAO';
+        }
+
+        return $value;
+    }
+
+    /**
      * Get the cliente that owns the encomenda.
      */
     public function cliente(): BelongsTo

@@ -15,13 +15,13 @@ readonly class EstadoEncomenda
     /**
      * Valid states for an Encomenda.
      */
-    public const PENDENTE = 'pendente';
-    public const EM_PROCESSAMENTO = 'em_processamento';
-    public const CONFIRMADA = 'confirmada';
-    public const EM_PRODUCAO = 'em_producao';
-    public const CONCLUIDA = 'concluida';
-    public const CANCELADA = 'cancelada';
-    public const ENTREGUE = 'entregue';
+    public const PENDENTE = 'PENDENTE';
+    public const EM_PROCESSAMENTO = 'EM_PROCESSAMENTO';
+    public const CONFIRMADA = 'CONFIRMADA';
+    public const EM_PRODUCAO = 'EM_PRODUCAO';
+    public const CONCLUIDA = 'CONCLUIDA';
+    public const CANCELADA = 'CANCELADA';
+    public const ENTREGUE = 'ENTREGUE';
 
     /**
      * List of all valid estados.

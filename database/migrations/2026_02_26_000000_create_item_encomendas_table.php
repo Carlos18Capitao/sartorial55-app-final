@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('encomenda_id')->constrained()->onDelete('cascade');
             $table->enum('tipo', ['camisa', 'fato', 'casaco', 'calca', 'colete']);
             $table->string('foto')->nullable();
-            $table->enum('estado', ['pendente', 'em_producao', 'pronto', 'enviado', 'entregue'])->default('pendente');
+            $table->enum('estado', ['PENDENTE', 'EM_PRODUCAO', 'PRONTO', 'ENVIADO', 'ENTREGUE'])->default('PENDENTE');
             $table->text('observacoes')->nullable();
             $table->date('data_envio')->nullable();
             $table->date('data_previsao')->nullable();

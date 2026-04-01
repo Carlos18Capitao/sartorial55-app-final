@@ -45,7 +45,7 @@ describe('Encomenda API', function () {
             $encomendaData = [
                 'cliente_id' => $this->cliente->id,
                 'data_encomenda' => '2026-01-15',
-                'estado' => 'pendente',
+                'estado' => 'PENDENTE',
                 'total' => 150.00,
                 'observacoes' => 'Test order',
             ];
@@ -68,13 +68,13 @@ describe('Encomenda API', function () {
 
             $this->assertDatabaseHas('encomendas', [
                 'cliente_id' => $this->cliente->id,
-                'estado' => 'pendente',
+                'estado' => 'PENDENTE',
             ]);
         });
 
         it('validates required cliente_id', function () {
             $response = $this->postJson('/api/encomendas', [
-                'estado' => 'pendente',
+                'estado' => 'PENDENTE',
             ]);
 
             $response->assertStatus(422)
@@ -104,19 +104,19 @@ describe('Encomenda API', function () {
         it('updates an encomenda', function () {
             $encomenda = Encomenda::factory()->create([
                 'cliente_id' => $this->cliente->id,
-                'estado' => 'pendente',
+                'estado' => 'PENDENTE',
             ]);
 
             $response = $this->putJson("/api/encomendas/{$encomenda->id}", [
-                'estado' => 'enviada',
+                'estado' => 'ENVIADA',
             ]);
 
             $response->assertStatus(200)
-                ->assertJsonPath('data.estado', 'enviada');
+                ->assertJsonPath('data.estado', 'ENVIADA');
 
             $this->assertDatabaseHas('encomendas', [
                 'id' => $encomenda->id,
-                'estado' => 'enviada',
+                'estado' => 'ENVIADA',
             ]);
         });
     });
@@ -155,7 +155,7 @@ describe('Encomenda API', function () {
 
                 $response = $this->postJson("/api/encomendas/{$encomenda->id}/itens", [
                     'tipo' => 'camisa',
-                    'estado' => 'pendente',
+                    'estado' => 'PENDENTE',
                 ]);
 
                 $response->assertStatus(201)
@@ -173,7 +173,7 @@ describe('Encomenda API', function () {
                 $response = $this->postJson("/api/encomendas/{$encomenda->id}/itens", [
                     'tipo' => 'camisa',
                     'cliente_medidas_id' => $this->clienteMedidas->id,
-                    'estado' => 'pendente',
+                    'estado' => 'PENDENTE',
                 ]);
 
                 $response->assertStatus(201)
@@ -212,19 +212,19 @@ describe('Encomenda API', function () {
                 $encomenda = Encomenda::factory()->create(['cliente_id' => $this->cliente->id]);
                 $item = ItemEncomenda::factory()->create([
                     'encomenda_id' => $encomenda->id,
-                    'estado' => 'pendente',
+                    'estado' => 'PENDENTE',
                 ]);
 
                 $response = $this->putJson("/api/encomendas/{$encomenda->id}/itens/{$item->id}", [
-                    'estado' => 'em_producao',
+                    'estado' => 'EM_PRODUCAO',
                 ]);
 
                 $response->assertStatus(200)
-                    ->assertJsonPath('data.estado', 'em_producao');
+                    ->assertJsonPath('data.estado', 'EM_PRODUCAO');
 
                 $this->assertDatabaseHas('item_encomendas', [
                     'id' => $item->id,
-                    'estado' => 'em_producao',
+                    'estado' => 'EM_PRODUCAO',
                 ]);
             });
         });

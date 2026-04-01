@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('cliente_id')->constrained()->onDelete('cascade');
             $table->date('data_encomenda');
-            $table->enum('estado', ['pendente', 'em_processamento', 'enviada', 'entregue', 'cancelada'])->default('pendente');
+            $table->enum('estado', ['AGUARDANDO_PAGAMENTO', 'PENDENTE', 'EM_PROCESSAMENTO', 'ENVIADA', 'ENTREGUE', 'CANCELADA'])->default('PENDENTE');
             $table->decimal('total', 10, 2)->default(0);
             $table->text('observacoes')->nullable();
             $table->timestamps();
