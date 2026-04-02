@@ -51,13 +51,13 @@ class EncomendaController extends Controller
             'observacoes' => 'nullable|string',
         ]);
 
-        $dto = CreateEncomendaDTO::fromRequest($validated);
+        $dto = \App\Application\DTOs\Requests\CreateEncomendaDTO::fromRequest($validated);
         $encomenda = $this->encomendaService->createEncomenda($dto);
 
         return response()->json([
             'success' => true,
             'message' => 'Encomenda criada com sucesso.',
-            'data' => EncomendaDTO::fromModel($encomenda, false),
+            'data' => \App\Application\DTOs\Responses\EncomendaDTO::fromModel($encomenda, false),
         ], 201);
     }
 
@@ -93,7 +93,7 @@ class EncomendaController extends Controller
             'observacoes' => 'nullable|string',
         ]);
 
-        $dto = UpdateEncomendaDTO::fromRequest($validated);
+        $dto = \App\Application\DTOs\Requests\UpdateEncomendaDTO::fromRequest($validated);
         $encomenda = $this->encomendaService->updateEncomenda($id, $dto);
 
         if (!$encomenda) {
@@ -106,7 +106,7 @@ class EncomendaController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Encomenda atualizada com sucesso.',
-            'data' => EncomendaDTO::fromModel($encomenda),
+            'data' => \App\Application\DTOs\Responses\EncomendaDTO::fromModel($encomenda),
         ]);
     }
 
@@ -145,7 +145,7 @@ class EncomendaController extends Controller
 
         $encomenda = Encomenda::findOrFail($id);
 
-        $dto = AddItemEncomendaDTO::fromRequest($validated);
+        $dto = \App\Application\DTOs\Requests\AddItemEncomendaDTO::fromRequest($validated);
         $itemData = $dto->toModelArray($encomenda->id);
 
         $item = ItemEncomenda::create($itemData);
@@ -174,7 +174,7 @@ class EncomendaController extends Controller
             'data_previsao' => 'nullable|date',
         ]);
 
-        $dto = UpdateItemEncomendaDTO::fromRequest($validated);
+        $dto = \App\Application\DTOs\Requests\UpdateItemEncomendaDTO::fromRequest($validated);
         $item = ItemEncomenda::where('encomenda_id', $encomendaId)->findOrFail($itemId);
         $item->update($dto->toModelArray());
 

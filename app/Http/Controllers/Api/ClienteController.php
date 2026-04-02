@@ -40,13 +40,13 @@ class ClienteController extends Controller
      */
     public function store(StoreClienteRequest $request): JsonResponse
     {
-        $dto = CreateClienteDTO::fromRequest($request->validated());
+        $dto = \App\Application\DTOs\Requests\CreateClienteDTO::fromRequest($request->validated());
         $cliente = $this->clienteService->create($dto);
 
         return response()->json([
             'success' => true,
             'message' => 'Cliente criado com sucesso.',
-            'data' => ClienteDTO::fromModel($cliente, false),
+            'data' => \App\Application\DTOs\Responses\ClienteDTO::fromModel($cliente, false),
         ], 201);
     }
 
